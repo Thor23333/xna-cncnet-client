@@ -14,6 +14,7 @@ namespace DTAConfig.CustomSettings
         public string SourcePath => ProgramConstants.GamePath + sourcePath;
 
         public string DestinationPath => ProgramConstants.GamePath + destinationPath;
+
         /// <summary>
         /// A path where the files edited by user are saved if
         /// <see cref="FileOperationOptions"/> is set to <see cref="FileOperationOptions.KeepChanges"/>.

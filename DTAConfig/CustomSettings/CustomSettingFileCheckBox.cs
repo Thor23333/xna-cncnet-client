@@ -9,24 +9,20 @@ using System.Linq;
 namespace DTAConfig.CustomSettings
 {
     /// <summary>
-    /// An implementation of a check-box that switches between two sets of files.
+    /// A check-box that toggles between two sets of files and saves the setting to user settings file.
     /// </summary>
-    public class CustomSettingFileCheckBox : XNAClientCheckBox, ICustomSetting
+    public class CustomSettingFileCheckBox : SettingCheckBoxBase, IFileSetting
     {
         public CustomSettingFileCheckBox(WindowManager windowManager) : base(windowManager) { }
+
+        public bool CheckAvailability { get; set; }
+        public bool ResetUnavailableValue { get; set; }
 
         private List<FileSourceDestinationInfo> enabledFiles = new List<FileSourceDestinationInfo>();
         private List<FileSourceDestinationInfo> disabledFiles = new List<FileSourceDestinationInfo>();
 
         private bool EnabledFilesComplete => enabledFiles.All(f => File.Exists(f.SourcePath));
         private bool DisabledFilesComplete => disabledFiles.All(f => File.Exists(f.SourcePath));
-
-        private bool defaultValue;
-        private bool originalState;
-
-        public bool RestartRequired { get; private set; }
-        public bool CheckAvailability { get; private set; }
-        public bool ResetUnavailableValue { get; private set; }
 
         public override void GetAttributes(IniFile iniFile)
         {
@@ -45,27 +41,15 @@ namespace DTAConfig.CustomSettings
         {
             switch (key)
             {
-                case "DefaultValue":
-                    defaultValue = Conversions.BooleanFromString(value, false);
-                    return;
                 case "CheckAvailability":
                     CheckAvailability = Conversions.BooleanFromString(value, false);
                     return;
                 case "ResetUnavailableValue":
                     ResetUnavailableValue = Conversions.BooleanFromString(value, false);
                     return;
-                case "RestartRequired":
-                    RestartRequired = Conversions.BooleanFromString(value, false);
-                    return;
             }
 
             base.ParseAttributeFromINI(iniFile, key, value);
-        }
-
-        public void Load()
-        {
-            Checked = UserINISettings.Instance.GetCustomSettingValue(Name, defaultValue);
-            originalState = Checked;
         }
 
         public bool RefreshSetting()
@@ -81,17 +65,21 @@ namespace DTAConfig.CustomSettings
                     if (DisabledFilesComplete != EnabledFilesComplete)
                         Checked = EnabledFilesComplete;
                     else if (!DisabledFilesComplete && !EnabledFilesComplete)
-                        Checked = defaultValue;
+                        Checked = DefaultValue;
                 }
             }
 
             return Checked != currentValue;
         }
 
-        public bool Save()
+        public override void Load()
         {
-            UserINISettings.Instance.SetCustomSettingValue(Name, Checked);
+            Checked = UserINISettings.Instance.GetValue(SettingSection, SettingKey, DefaultValue);
+            originalState = Checked;
+        }
 
+        public override bool Save()
+        {
             bool canBeChecked = !CheckAvailability || EnabledFilesComplete;
             bool canBeUnchecked = !CheckAvailability || DisabledFilesComplete;
 
@@ -112,6 +100,7 @@ namespace DTAConfig.CustomSettings
                 return false;
             }
 
+            UserINISettings.Instance.SetValue(SettingSection, SettingKey, Checked);
             return RestartRequired && (Checked != originalState);
         }
     }

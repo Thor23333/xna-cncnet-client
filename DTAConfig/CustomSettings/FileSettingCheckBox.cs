@@ -1,4 +1,4 @@
-using ClientGUI;
+
 using Rampastring.Tools;
 using Rampastring.XNAUI;
 using System.Collections.Generic;
@@ -7,9 +7,9 @@ using System.IO;
 namespace DTAConfig.CustomSettings
 {
     /// <summary>
-    /// A legacy implementation of a check-box fitting for a file presence toggle setting.
+    /// A legacy implementation of a check-box that toggles a single set of files.
     /// </summary>
-    public class FileSettingCheckBox : XNAClientCheckBox, ICustomSetting
+    public class FileSettingCheckBox : SettingCheckBoxBase
     {
         public FileSettingCheckBox(WindowManager windowManager) : base(windowManager) { }
 
@@ -27,11 +27,6 @@ namespace DTAConfig.CustomSettings
 
         private List<FileSourceDestinationInfo> files;
         private bool reversed;
-        private bool originalState;
-
-        public bool RestartRequired { get; private set; }
-        public bool CheckAvailability { get; private set; }
-        public bool ResetUnavailableValue { get; private set; }
 
         public override void GetAttributes(IniFile iniFile)
         {
@@ -52,25 +47,18 @@ namespace DTAConfig.CustomSettings
                 case "Reversed":
                     reversed = Conversions.BooleanFromString(value, false);
                     return;
-                case "RestartRequired":
-                    RestartRequired = Conversions.BooleanFromString(value, false);
-                    return;
             }
 
             base.ParseAttributeFromINI(iniFile, key, value);
         }
 
-        public void Load()
+        public override void Load()
         {
             Checked = reversed != File.Exists(files[0].DestinationPath);
             originalState = Checked;
         }
 
-        public bool RefreshSetting()
-            // TODO implement custom logic for refreshing the checkbox
-            => false;
-
-        public bool Save()
+        public override bool Save()
         {
             if (reversed != Checked)
                 files.ForEach(f => f.Apply());

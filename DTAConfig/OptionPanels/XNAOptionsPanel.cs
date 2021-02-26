@@ -25,7 +25,7 @@ namespace DTAConfig.OptionPanels
 
         private static readonly OptionsGUICreator optionsGUICreator = new OptionsGUICreator();
 
-        private List<ICustomSetting> customSettings = new List<ICustomSetting>();
+        private List<IUserSetting> customSettings = new List<IUserSetting>();
 
         public override void Initialize()
         {
@@ -55,7 +55,7 @@ namespace DTAConfig.OptionPanels
 
             foreach (var control in Children)
             {
-                if (control is ICustomSetting setting)
+                if (control is IUserSetting setting)
                     customSettings.Add(setting);
             }
         }
@@ -86,7 +86,10 @@ namespace DTAConfig.OptionPanels
         {
             bool valuesChanged = false;
             foreach (var setting in customSettings)
-                valuesChanged = setting.RefreshSetting() || valuesChanged;
+            {
+                if (setting is IFileSetting fileSetting)
+                    valuesChanged = fileSetting.RefreshSetting() || valuesChanged;
+            }
 
             return valuesChanged;
         }

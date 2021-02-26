@@ -1,6 +1,7 @@
 ﻿using ClientCore;
 using ClientCore.CnCNet5;
 using ClientGUI;
+using DTAConfig.CustomSettings;
 using Microsoft.Xna.Framework;
 using Rampastring.XNAUI;
 using Rampastring.XNAUI.XNAControls;
@@ -125,9 +126,7 @@ namespace DTAConfig.OptionPanels
             chkBlackChatBackground.Text = "Use black background for in-game chat messages";
 
             AddChild(chkBlackChatBackground);
-#endif
 
-#if TS
             chkAltToUndeploy = new XNAClientCheckBox(WindowManager);
             chkAltToUndeploy.Name = "chkAltToUndeploy";
             chkAltToUndeploy.ClientRectangle = new Rectangle(
@@ -140,10 +139,37 @@ namespace DTAConfig.OptionPanels
             lblPlayerName.ClientRectangle = new Rectangle(
                 lblScrollRate.X,
                 chkAltToUndeploy.Bottom + 30, 0, 0);
+
+#elif ARES
+            var chkPhobosTooltipDesc = new CustomSettingCheckBox(WindowManager);
+            chkPhobosTooltipDesc.Name = nameof(chkPhobosTooltipDesc);
+            chkPhobosTooltipDesc.ClientRectangle = new Rectangle(
+                chkScrollCoasting.X,
+                chkTooltips.Bottom + 24, 0, 0);
+            chkPhobosTooltipDesc.Text = "Sidebar Tooltip Descriptions";
+            chkPhobosTooltipDesc.SettingSection = "Phobos";
+            chkPhobosTooltipDesc.SettingKey = "ToolTipDescriptions";
+            chkPhobosTooltipDesc.DefaultValue = true;
+            chkPhobosTooltipDesc.ParentCheckBox = chkTooltips;
+
+            var chkPhobosPrioritySelectFilter = new CustomSettingCheckBox(WindowManager);
+            chkPhobosPrioritySelectFilter.Name = nameof(chkPhobosPrioritySelectFilter);
+            chkPhobosPrioritySelectFilter.ClientRectangle = new Rectangle(
+                chkScrollCoasting.X,
+                chkPhobosTooltipDesc.Bottom + 24, 0, 0);
+            chkPhobosPrioritySelectFilter.Text = "Filter Low-Priority Units When Mass-Selecting";
+            chkPhobosPrioritySelectFilter.SettingSection = "Phobos";
+            chkPhobosPrioritySelectFilter.SettingKey = "PrioritySelectionFiltering";
+            chkPhobosPrioritySelectFilter.DefaultValue = true;
+
+            AddChild(chkPhobosTooltipDesc);
+            AddChild(chkPhobosPrioritySelectFilter);
+
+            lblPlayerName.ClientRectangle = new Rectangle(
+                lblScrollRate.X,
+                chkPhobosPrioritySelectFilter.Bottom + 20, 0, 0);
+
 #endif
-
-
-
 
             tbPlayerName = new XNATextBox(WindowManager);
             tbPlayerName.Name = "tbPlayerName";
