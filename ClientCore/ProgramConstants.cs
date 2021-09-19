@@ -54,7 +54,8 @@ namespace ClientCore
 
         public static string BASE_RESOURCE_PATH = "Resources/";
         public static string RESOURCES_DIR = BASE_RESOURCE_PATH;
-
+        public static string LOCALISATION_PATH = "Localisation/";
+        
         public static int LOG_LEVEL = 1;
 
         public static bool IsInGame { get; set; }
@@ -67,6 +68,10 @@ namespace ClientCore
         public static string GetBaseResourcePath()
         {
             return GamePath + BASE_RESOURCE_PATH;
+        }
+        public static string GetLocalePath()
+        {
+            return GamePath + BASE_RESOURCE_PATH + LOCALISATION_PATH;
         }
 
         public const string GAME_INVITE_CTCP_COMMAND = "INVITE";

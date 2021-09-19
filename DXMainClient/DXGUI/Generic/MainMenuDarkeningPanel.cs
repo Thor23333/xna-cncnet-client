@@ -11,7 +11,7 @@ namespace DTAClient.DXGUI.Generic
     /// TODO Replace this class with DarkeningPanels.
     /// Handles transitions between the main menu and its sub-menus.
     /// </summary>
-    public class MainMenuDarkeningPanel : XNAPanel
+    public class MainMenuDarkeningPanel : XNAScriptablePanel
     {
         public MainMenuDarkeningPanel(WindowManager windowManager, DiscordHandler discordHandler) : base(windowManager)
         {
