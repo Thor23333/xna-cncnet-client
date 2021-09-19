@@ -135,7 +135,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             btnNewGame = new XNAClientButton(WindowManager);
             btnNewGame.Name = nameof(btnNewGame);
             btnNewGame.ClientRectangle = new Rectangle(12, Height - 29, 133, 23);
-            btnNewGame.Text = "Create Game";
+            btnNewGame.Text = LocaleKey.Lobby_btnNewGame.Lang();
             btnNewGame.AllowClick = false;
             btnNewGame.LeftClick += BtnNewGame_LeftClick;
 
@@ -143,7 +143,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             btnJoinGame.Name = nameof(btnJoinGame);
             btnJoinGame.ClientRectangle = new Rectangle(btnNewGame.Right + 12,
                 btnNewGame.Y, 133, 23);
-            btnJoinGame.Text = "Join Game";
+            btnJoinGame.Text = LocaleKey.Lobby_btnJoinGame.Lang();
             btnJoinGame.AllowClick = false;
             btnJoinGame.LeftClick += BtnJoinGame_LeftClick;
 
@@ -151,7 +151,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             btnLogout.Name = nameof(btnLogout);
             btnLogout.ClientRectangle = new Rectangle(Width - 145, btnNewGame.Y,
                 133, 23);
-            btnLogout.Text = "Log Out";
+            btnLogout.Text = LocaleKey.LogOut.Lang();
             btnLogout.LeftClick += BtnLogout_LeftClick;
 
             lbGameList = new GameListBox(WindowManager, localGameID, HostedGameMatches);
@@ -180,11 +180,11 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             playerContextMenu.ClientRectangle = new Rectangle(0, 0, 150, 2);
             playerContextMenu.Enabled = false;
             playerContextMenu.Visible = false;
-            playerContextMenu.AddItem("Private Message", () => 
+            playerContextMenu.AddItem(LocaleKey.Lobby_PrivateMessage.Lang(), () => 
                 PerformUserListContextMenuAction(iu => pmWindow.InitPM(iu.Name)));
-            playerContextMenu.AddItem("Add Friend", () => 
+            playerContextMenu.AddItem(LocaleKey.Lobby_AddFriend.Lang(), () => 
                 PerformUserListContextMenuAction(iu => cncnetUserData.ToggleFriend(iu.Name)));
-            playerContextMenu.AddItem("Ignore User", () => 
+            playerContextMenu.AddItem(LocaleKey.Lobby_Block.Lang(), () => 
                 PerformUserListContextMenuAction(iu => cncnetUserData.ToggleIgnoreUser(iu.Ident)));
 
             lbChatMessages = new ChatListBox(WindowManager);
@@ -200,7 +200,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             tbChatInput.ClientRectangle = new Rectangle(lbChatMessages.X,
                 btnNewGame.Y, lbChatMessages.Width,
                 btnNewGame.Height);
-            tbChatInput.Suggestion = "Type here to chat...";
+            tbChatInput.Suggestion = LocaleKey.Lobby_tbChatInput.Lang();
             tbChatInput.Enabled = false;
             tbChatInput.MaximumTextLength = 200;
             tbChatInput.EnterPressed += TbChatInput_EnterPressed;
@@ -209,7 +209,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             lblColor.Name = nameof(lblColor);
             lblColor.ClientRectangle = new Rectangle(lbChatMessages.X, 14, 0, 0);
             lblColor.FontIndex = 1;
-            lblColor.Text = "YOUR COLOR:";
+            lblColor.Text = LocaleKey.Lobby_lblColor.Lang();
 
             ddColor = new XNAClientDropDown(WindowManager);
             ddColor.Name = nameof(ddColor);
@@ -253,12 +253,12 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
                 ddCurrentChannel.X - 150,
                 ddCurrentChannel.Y + 2, 0, 0);
             lblCurrentChannel.FontIndex = 1;
-            lblCurrentChannel.Text = "CURRENT CHANNEL:";
+            lblCurrentChannel.Text = LocaleKey.Lobby_lblCurrentChannel.Lang();
 
             lblOnline = new XNALabel(WindowManager);
             lblOnline.Name = nameof(lblOnline);
             lblOnline.ClientRectangle = new Rectangle(310, 14, 0, 0);
-            lblOnline.Text = "Online:";
+            lblOnline.Text = LocaleKey.Lobby_lblOnline.Lang();
             lblOnline.FontIndex = 1;
             lblOnline.Disable();
 
@@ -272,7 +272,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             tbGameSearch.Name = nameof(tbGameSearch);
             tbGameSearch.ClientRectangle = new Rectangle(lbGameList.X,
                 12, lbGameList.Width, 21);
-            tbGameSearch.Suggestion = "Filter by name, map, game mode, player...";
+            tbGameSearch.Suggestion = LocaleKey.Lobby_tbGameSearch.Lang();
             tbGameSearch.MaximumTextLength = 64;
             tbGameSearch.InputReceived += TbGameSearch_InputReceived;
             tbGameSearch.Disable();
@@ -358,7 +358,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
                     if (gameBroadcastChannel == null)
                     {
-                        gameBroadcastChannel = connectionManager.CreateChannel(game.UIName + " Broadcast Channel",
+                        gameBroadcastChannel = connectionManager.CreateChannel(game.UIName + " "+ LocaleKey.Lobby_gameBroadcastChannel.Lang(),
                             game.GameBroadcastChannel, true, false, null);
                         connectionManager.AddChannel(gameBroadcastChannel);
                     }
@@ -413,8 +413,8 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             gameCreationPanel.Hide();
 
             connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White, Renderer.GetSafeString(
-                    "*** DTA CnCNet Client version " +
-                    System.Windows.Forms.Application.ProductVersion + " ***", lbChatMessages.FontIndex)));
+                    LocaleKey.Lobby_ClientVersionTip.Lang().Format(System.Windows.Forms.Application.ProductVersion),
+                    lbChatMessages.FontIndex)));
 
             connectionManager.BannedFromChannel += ConnectionManager_BannedFromChannel;
 
@@ -458,12 +458,12 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             if (game == null)
             {
                 connectionManager.MainChannel.AddMessage(new ChatMessage(
-                    Color.White, "Cannot join channel " + e.ChannelName + ", you're banned!"));
+                    Color.White, LocaleKey.Lobby_BannedTip.Lang().Format(e.ChannelName)));
             }
             else
             {
                 connectionManager.MainChannel.AddMessage(new ChatMessage(
-                    Color.White, "Cannot join game " + game.RoomName + ", you've been banned by the game host!"));
+                    Color.White, LocaleKey.Lobby_GameBannedTip.Lang().Format(game.RoomName)));
             }
 
             isJoiningGame = false;
@@ -529,8 +529,23 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             var user = (ChannelUser)lbPlayerList.SelectedItem.Tag;
             bool isAdmin = user.IsAdmin;
 
-            playerContextMenu.Items[1].Text = cncnetUserData.IsFriend(user.IRCUser.Name) ? "Remove Friend" : "Add Friend";
-            playerContextMenu.Items[2].Text = cncnetUserData.IsIgnored(user.IRCUser.Ident) && !isAdmin ? "Unblock" : "Block";
+            if (cncnetUserData.IsFriend(user.IRCUser.Name))
+            {
+                playerContextMenu.Items[1].Text = LocaleKey.Lobby_RemoveFriend.Lang();
+            }
+            else
+            {
+                playerContextMenu.Items[1].Text = LocaleKey.Lobby_AddFriend.Lang();
+            }
+            if (cncnetUserData.IsIgnored(user.IRCUser.Ident) && !isAdmin)
+            {
+                playerContextMenu.Items[2].Text = LocaleKey.Lobby_Unblock.Lang();
+
+            }
+            else
+            {
+                playerContextMenu.Items[2].Text = LocaleKey.Lobby_Block.Lang();
+            }
             playerContextMenu.Items[2].Selectable = !isAdmin;
 
             playerContextMenu.Open(GetCursorPoint());
@@ -609,17 +624,17 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
         {
             if (isInGameRoom)
             {
-                btnLogout.Text = "Game Lobby";
+                btnLogout.Text = LocaleKey.GameLobby.Lang();
                 return;
             }
 
             if (UserINISettings.Instance.PersistentMode)
             {
-                btnLogout.Text = "Main Menu";
+                btnLogout.Text = LocaleKey.MainMenu.Lang();
                 return;
             }
 
-            btnLogout.Text = "Log Out";
+            btnLogout.Text = LocaleKey.LogOut.Lang();
         }
 
         private void BtnJoinGame_LeftClick(object sender, EventArgs e) => LbGameList_DoubleLeftClick(this, EventArgs.Empty);
@@ -637,24 +652,24 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
         private string CanJoinGameByIndex(int gameIndex)
         {
             if (gameIndex < 0 || gameIndex >= lbGameList.Items.Count)
-                return "Invalid game index";
+                return LocaleKey.Lobby_InvalidGameIndexError.Lang();
 
             if (isJoiningGame)
-                return "Cannot join game - joining game in progress";
+                return LocaleKey.Lobby_JoiningGameInProgressError.Lang();
 
             if (ProgramConstants.IsInGame)
-                return "Cannot join game while the main game executable is running.";
+                return LocaleKey.Lobby_GameExeRunningError.Lang();
 
             HostedCnCNetGame hg = (HostedCnCNetGame)lbGameList.Items[gameIndex].Tag;
 
             if (hg.Game.InternalName.ToUpper() != localGameID.ToUpper())
-                return "The selected game is for " + gameCollection.GetGameNameFromInternalName(hg.Game.InternalName);
+                return LocaleKey.Lobby_LocalGameIDMismatchError.Lang().Format(gameCollection.GetGameNameFromInternalName(hg.Game.InternalName));
 
             if (hg.Locked)
-                return "The selected game is locked!";
+                return LocaleKey.Lobby_GameLockedError.Lang();
 
             if (hg.IsLoadedGame && !hg.Players.Contains(ProgramConstants.PLAYERNAME))
-                return "You do not exist in the saved game!";
+                return LocaleKey.Lobby_NotInSaveGameError.Lang();
 
             return null;
         }
@@ -712,7 +727,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
         private void JoinGame(HostedCnCNetGame hg, string password)
         {
             connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White,
-                "Attempting to join game " + hg.RoomName + "..."));
+                LocaleKey.Lobby_JoiningGameTip.Lang().Format(hg.RoomName)));
             isJoiningGame = true;
             gameOfLastJoinAttempt = hg;
 
@@ -752,7 +767,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
         private void GameChannel_InviteOnlyErrorOnJoin(object sender, EventArgs e)
         {
-            connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White, "The selected game is locked!"));
+            connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White, LocaleKey.Lobby_GameLockedError.Lang()));
             var channel = (Channel)sender;
 
             var game = FindGameByChannelName(channel.ChannelName);
@@ -776,7 +791,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
         private void GameChannel_InvalidPasswordEntered_NewGame(object sender, EventArgs e)
         {
-            connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White, "Incorrect password!"));
+            connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White, LocaleKey.Lobby_IncorrectPasswordError.Lang()));
             ClearGameJoinAttempt((Channel)sender);
         }
 
@@ -846,7 +861,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             connectionManager.SendCustomMessage(new QueuedMessage("JOIN " + channelName + " " + password,
                 QueuedMessageType.INSTANT_MESSAGE, 0));
             connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White,
-                "Creating a game named " + e.GameRoomName + "..."));
+                LocaleKey.Lobby_CreatingGameTip.Lang().Format(e.GameRoomName)));
 
             gameCreationPanel.Hide();
 
@@ -868,7 +883,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             connectionManager.SendCustomMessage(new QueuedMessage("JOIN " + channelName + " " + e.Password,
                 QueuedMessageType.INSTANT_MESSAGE, 0));
             connectionManager.MainChannel.AddMessage(new ChatMessage(Color.White,
-                "Creating a game named " + e.GameRoomName + "..."));
+                LocaleKey.Lobby_CreatingGameTip.Lang().Format(e.GameRoomName)));
 
             gameCreationPanel.Hide();
 
@@ -1003,14 +1018,23 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             else
                 connectionManager.FindChannel(localGameBroadcastChannel).Join();
 
-            if (chatChannelMissing || broadcastChannelMissing)
-                XNAMessageBox.Show(WindowManager, "Error joining channels", "Following problems were encountered " +
-                    "when attempting to join channels for the currently set local game " + localGameID +":" + Environment.NewLine + Environment.NewLine +
-                    (chatChannelMissing ? "- Chat channel info could not be found. No chat channel will be available for this game in Current Channel dropdown." +
-                    Environment.NewLine + Environment.NewLine : "") +
-                    (broadcastChannelMissing ? "- Broadcast channel info could not be found. Creating & hosting games will be disabled." +
-                    Environment.NewLine + Environment.NewLine : "") +
-                    "Please check that the local game is set correctly in client configuration, and if using a custom-defined game, that its channel info is set properly.");
+            if (chatChannelMissing && broadcastChannelMissing)
+                XNAMessageBox.Show(WindowManager, LocaleKey.Lobby_JoinChannelError.Lang(),
+                    LocaleKey.Lobby_JoinChannelErrorDesc.Lang().Format(localGameID) + Environment.NewLine + Environment.NewLine +
+                    LocaleKey.Lobby_JoinChatChannelErrorDesc.Lang() + Environment.NewLine + Environment.NewLine +
+                    LocaleKey.Lobby_JoinBroadcastChannelErrorDesc.Lang() + Environment.NewLine + Environment.NewLine +
+                    LocaleKey.Lobby_JoinChannelErrorDescFinal.Lang());
+            else if (chatChannelMissing)
+                XNAMessageBox.Show(WindowManager, LocaleKey.Lobby_JoinChannelError.Lang(),
+                    LocaleKey.Lobby_JoinChannelErrorDesc.Lang().Format(localGameID) + Environment.NewLine + Environment.NewLine +
+                    LocaleKey.Lobby_JoinChatChannelErrorDesc.Lang() + Environment.NewLine + Environment.NewLine +
+                    LocaleKey.Lobby_JoinChannelErrorDescFinal.Lang());
+            else if (broadcastChannelMissing)
+                XNAMessageBox.Show(WindowManager, LocaleKey.Lobby_JoinChannelError.Lang(),
+                    LocaleKey.Lobby_JoinChannelErrorDesc.Lang().Format(localGameID) + Environment.NewLine + Environment.NewLine +
+                    LocaleKey.Lobby_JoinBroadcastChannelErrorDesc.Lang() + Environment.NewLine + Environment.NewLine +
+                    LocaleKey.Lobby_JoinChannelErrorDescFinal.Lang());
+
 
             foreach (CnCNetGame game in gameCollection.GameList)
             {
@@ -1094,11 +1118,11 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
             // show the invitation at top left; it will remain until it is acted upon or the target game is closed
             gameInviteChoiceBox.Show(
-                "GAME INVITATION",
+                LocaleKey.Lobby_InviteHead.Lang(),
                 GetUserTexture(sender),
                 sender,
-                "Join " + gameName + "?",
-                "Yes", "No", 0);
+                LocaleKey.Lobby_InviteChoice.Lang().Format(gameName),
+                LocaleKey.Lobby_InviteYes.Lang(), LocaleKey.Lobby_InviteNo.Lang(), 0);
 
             // add the invitation to the index so we can remove it if the target game is closed
             // also lets us silently ignore new invitations from the same person while this one is still outstanding
@@ -1117,8 +1141,8 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
                 if (!JoinGameByIndex(lbGameList.HostedGames.FindIndex(hg => ((HostedCnCNetGame)hg).ChannelName == channelName), password))
                 {
                     XNAMessageBox.Show(WindowManager,
-                        "Failed to join",
-                        "Unable to join " + sender + "'s game. The game may be locked or closed.");
+                        LocaleKey.Lobby_InviteJoinFailed.Lang(),
+                        LocaleKey.Lobby_InviteJoinFailedDesc.Lang().Format(sender));
                 }
 
                 // clean up the index as this invitation no longer exists
@@ -1142,9 +1166,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
             if (isInGameRoom && !ProgramConstants.IsInGame)
             {
                 gameLobby.AddWarning(
-                    sender + " could not receive your invitation. They might be in game " +
-                    "or only accepting invitations from friends. Ensure your game is " +
-                    "unlocked and visible in the lobby before trying again.");
+                    LocaleKey.Lobby_InviteFailed.Lang().Format(sender));
             }
         }
 
@@ -1250,7 +1272,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
                 cncnetUserData.IsIgnored(message.SenderIdent) &&
                 !message.SenderIsAdmin)
             {
-                lbChatMessages.AddMessage(new ChatMessage(Color.Silver, "Message blocked from - " + message.SenderName));
+                lbChatMessages.AddMessage(new ChatMessage(Color.Silver, LocaleKey.Lobby_MsgBlocked.Lang().Format(message.SenderName)));
             }
             else
             {
@@ -1298,8 +1320,8 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
                 string version = e.Message.Substring(7);
                 if (version != ProgramConstants.GAME_VERSION)
                 {
-                    var updateMessageBox = XNAMessageBox.ShowYesNoDialog(WindowManager, "Update available",
-                        "An update is available. Do you want to perform the update now?");
+                    var updateMessageBox = XNAMessageBox.ShowYesNoDialog(WindowManager, LocaleKey.Lobby_UpdateTip.Lang(),
+                        LocaleKey.Lobby_UpdateTipChoice.Lang());
                     updateMessageBox.NoClickedAction = UpdateMessageBox_NoClicked;
                     updateMessageBox.YesClickedAction = UpdateMessageBox_YesClicked;
                 }
@@ -1443,7 +1465,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
         public void SwitchOff() => Disable();
 
-        public string GetSwitchName() => "CnCNet Lobby";
+        public string GetSwitchName() => LocaleKey.CnCNetLobby.Lang();
 
         private bool CanReceiveInvitationMessagesFrom(string username)
         {

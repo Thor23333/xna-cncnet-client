@@ -105,21 +105,21 @@ namespace DTAClient.DXGUI.Multiplayer
             btnNewGame = new XNAClientButton(WindowManager);
             btnNewGame.Name = "btnNewGame";
             btnNewGame.ClientRectangle = new Rectangle(12, Height - 35, 133, 23);
-            btnNewGame.Text = "Create Game";
+            btnNewGame.Text = LocaleKey.Lobby_btnNewGame.Lang();
             btnNewGame.LeftClick += BtnNewGame_LeftClick;
 
             btnJoinGame = new XNAClientButton(WindowManager);
             btnJoinGame.Name = "btnJoinGame";
             btnJoinGame.ClientRectangle = new Rectangle(btnNewGame.Right + 12,
                 btnNewGame.Y, 133, 23);
-            btnJoinGame.Text = "Join Game";
+            btnJoinGame.Text = LocaleKey.Lobby_btnJoinGame.Lang();
             btnJoinGame.LeftClick += BtnJoinGame_LeftClick;
 
             btnMainMenu = new XNAClientButton(WindowManager);
             btnMainMenu.Name = "btnMainMenu";
             btnMainMenu.ClientRectangle = new Rectangle(Width - 145,
                 btnNewGame.Y, 133, 23);
-            btnMainMenu.Text = "Main Menu";
+            btnMainMenu.Text = LocaleKey.MainMenu.Lang();
             btnMainMenu.LeftClick += BtnMainMenu_LeftClick;
 
             lbGameList = new GameListBox(WindowManager, localGame, null);
@@ -157,7 +157,7 @@ namespace DTAClient.DXGUI.Multiplayer
             tbChatInput.ClientRectangle = new Rectangle(lbChatMessages.X,
                 btnNewGame.Y, lbChatMessages.Width,
                 btnNewGame.Height);
-            tbChatInput.Suggestion = "Type here to chat...";
+            tbChatInput.Suggestion = LocaleKey.Lobby_tbChatInput.Lang();
             tbChatInput.MaximumTextLength = 200;
             tbChatInput.EnterPressed += TbChatInput_EnterPressed;
 
@@ -165,7 +165,7 @@ namespace DTAClient.DXGUI.Multiplayer
             lblColor.Name = "lblColor";
             lblColor.ClientRectangle = new Rectangle(lbChatMessages.X, 14, 0, 0);
             lblColor.FontIndex = 1;
-            lblColor.Text = "YOUR COLOR:";
+            lblColor.Text = LocaleKey.Lobby_lblColor.Lang();
 
             ddColor = new XNAClientDropDown(WindowManager);
             ddColor.Name = "ddColor";
@@ -174,21 +174,21 @@ namespace DTAClient.DXGUI.Multiplayer
 
             chatColors = new LANColor[]
             {
-                new LANColor("Gray", Color.Gray),
-                new LANColor("Metalic", Color.LightGray),
-                new LANColor("Green", Color.Green),
-                new LANColor("Lime Green", Color.LimeGreen),
-                new LANColor("Green Yellow", Color.GreenYellow),
-                new LANColor("Goldenrod", Color.Goldenrod),
-                new LANColor("Yellow", Color.Yellow),
-                new LANColor("Orange", Color.Orange),
-                new LANColor("Red", Color.Red),
-                new LANColor("Pink", Color.DeepPink),
-                new LANColor("Purple", Color.MediumPurple),
-                new LANColor("Sky Blue", Color.SkyBlue),
-                new LANColor("Blue", Color.Blue),
-                new LANColor("Brown", Color.SaddleBrown),
-                new LANColor("Teal", Color.Teal)
+                new LANColor(LocaleKey.LANColor_Gray.Lang(), Color.Gray),
+                new LANColor(LocaleKey.LANColor_Metalic.Lang(), Color.LightGray),
+                new LANColor(LocaleKey.LANColor_Green.Lang(), Color.Green),
+                new LANColor(LocaleKey.LANColor_LimeGreen.Lang(), Color.LimeGreen),
+                new LANColor(LocaleKey.LANColor_GreenYellow.Lang(), Color.GreenYellow),
+                new LANColor(LocaleKey.LANColor_Goldenrod.Lang(), Color.Goldenrod),
+                new LANColor(LocaleKey.LANColor_Yellow.Lang(), Color.Yellow),
+                new LANColor(LocaleKey.LANColor_Orange.Lang(), Color.Orange),
+                new LANColor(LocaleKey.LANColor_Red.Lang(), Color.Red),
+                new LANColor(LocaleKey.LANColor_Pink.Lang(), Color.DeepPink),
+                new LANColor(LocaleKey.LANColor_Purple.Lang(), Color.MediumPurple),
+                new LANColor(LocaleKey.LANColor_SkyBlue.Lang(), Color.SkyBlue),
+                new LANColor(LocaleKey.LANColor_Blue.Lang(), Color.Blue),
+                new LANColor(LocaleKey.LANColor_Brown.Lang(), Color.SaddleBrown),
+                new LANColor(LocaleKey.LANColor_Teal.Lang(), Color.Teal)
             };
 
             foreach (LANColor color in chatColors)
@@ -346,11 +346,11 @@ namespace DTAClient.DXGUI.Multiplayer
             {
                 Logger.Log("Creating LAN socket failed! Message: " + ex.Message);
                 lbChatMessages.AddMessage(new ChatMessage(Color.Red,
-                    "Creating LAN socket failed! Message: " + ex.Message));
+                    LocaleKey.LANLobby_SocketFailed.Lang() + " " + ex.Message));
                 lbChatMessages.AddMessage(new ChatMessage(Color.Red,
-                    "Please check your firewall settings."));
+                    LocaleKey.LANLobby_SocketFailed_l2.Lang()));
                 lbChatMessages.AddMessage(new ChatMessage(Color.Red,
-                    "Also make sure that no other application is listening to traffic on UDP ports 1232 - 1234."));
+                    LocaleKey.LANLobby_SocketFailed_l3.Lang()));
                 initSuccess = false;
                 return;
             }
@@ -524,14 +524,15 @@ namespace DTAClient.DXGUI.Multiplayer
 
             if (hg.Game.InternalName.ToUpper() != localGame.ToUpper())
             {
-                lbChatMessages.AddMessage("The selected game is for " +
-                    gameCollection.GetGameNameFromInternalName(hg.Game.InternalName) + "!");
+                lbChatMessages.AddMessage(
+                    LocaleKey.Lobby_LocalGameIDMismatchError.Lang().Format(
+                        gameCollection.GetGameNameFromInternalName(hg.Game.InternalName)));
                 return;
             }
 
             if (hg.Locked)
             {
-                lbChatMessages.AddMessage("The selected game is locked!");
+                lbChatMessages.AddMessage(LocaleKey.Lobby_GameLockedError.Lang());
                 return;
             }
 
@@ -539,7 +540,7 @@ namespace DTAClient.DXGUI.Multiplayer
             {
                 if (!hg.Players.Contains(ProgramConstants.PLAYERNAME))
                 {
-                    lbChatMessages.AddMessage("You do not exist in the saved game!");
+                    lbChatMessages.AddMessage(LocaleKey.Lobby_NotInSaveGameError.Lang());
                     return;
                 }
             }
@@ -547,7 +548,7 @@ namespace DTAClient.DXGUI.Multiplayer
             {
                 if (hg.Players.Contains(ProgramConstants.PLAYERNAME))
                 {
-                    lbChatMessages.AddMessage("Your name is already taken in the game.");
+                    lbChatMessages.AddMessage(LocaleKey.LANLobby_DuplicateNameError.Lang());
                     return;
                 }
             }
@@ -557,7 +558,7 @@ namespace DTAClient.DXGUI.Multiplayer
                 // TODO Show warning
             }
 
-            lbChatMessages.AddMessage("Attempting to join game " + hg.RoomName + "...");
+            lbChatMessages.AddMessage(LocaleKey.Lobby_JoiningGameTip.Lang().Format(hg.RoomName));
 
             try
             {
@@ -601,7 +602,7 @@ namespace DTAClient.DXGUI.Multiplayer
             catch (Exception ex)
             {
                 lbChatMessages.AddMessage(null,
-                    "Connecting to the game failed! Message: " + ex.Message, Color.White);
+                    LocaleKey.LANLobby_ConnectError.Lang() + ex.Message, Color.White);
             }
         }
 

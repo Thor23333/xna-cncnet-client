@@ -52,7 +52,7 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
 
             btnCreateGame = new XNAClientButton(WindowManager);
             btnCreateGame.ClientRectangle = new Rectangle(12, 159, 133, 23);
-            btnCreateGame.Text = "Create Game";
+            btnCreateGame.Text = LocaleKey.Lobby_btnNewGame.Lang();
             btnCreateGame.LeftClick += BtnCreateGame_LeftClick;
 
             btnCancel = new XNAClientButton(WindowManager);

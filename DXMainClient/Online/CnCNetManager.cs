@@ -1,5 +1,6 @@
 ﻿using ClientCore;
 using ClientCore.CnCNet5;
+using ClientGUI;
 using DTAClient.Domain.Multiplayer.CnCNet;
 using DTAClient.Online.EventArguments;
 using Microsoft.Xna.Framework;
@@ -57,22 +58,22 @@ namespace DTAClient.Online
 
             ircChatColors = new IRCColor[]
             {
-                new IRCColor("Default color", false, cDefaultChatColor, 0),
-                new IRCColor("Default color #2", false, cDefaultChatColor, 1),
-                new IRCColor("Light Blue", true, Color.LightBlue, 2),
-                new IRCColor("Green", true, Color.ForestGreen, 3),
-                new IRCColor("Dark Red", true, new Color(180, 0, 0, 255), 4),
-                new IRCColor("Red", true, Color.Red, 5),
-                new IRCColor("Purple", true, Color.MediumOrchid, 6),
-                new IRCColor("Orange", true, Color.Orange, 7),
-                new IRCColor("Yellow", true, Color.Yellow, 8),
-                new IRCColor("Lime Green", true, Color.Lime, 9),
-                new IRCColor("Turquoise", true, Color.Turquoise, 10),
-                new IRCColor("Sky Blue", true, Color.LightSkyBlue, 11),
-                new IRCColor("Blue", true, Color.RoyalBlue, 12),
-                new IRCColor("Pink", true, Color.Fuchsia, 13),
-                new IRCColor("Gray", true, Color.LightGray, 14),
-                new IRCColor("Gray #2", false, Color.Gray, 15)
+                new IRCColor(LocaleKey.IRCColor_DefaultColor.Lang(), false, cDefaultChatColor, 0),
+                new IRCColor(LocaleKey.IRCColor_DefaultColor2.Lang(), false, cDefaultChatColor, 1),
+                new IRCColor(LocaleKey.IRCColor_LightBlue.Lang(), true, Color.LightBlue, 2),
+                new IRCColor(LocaleKey.IRCColor_ForestGreen.Lang(), true, Color.ForestGreen, 3),
+                new IRCColor(LocaleKey.IRCColor_DarkRed.Lang(), true, new Color(180, 0, 0, 255), 4),
+                new IRCColor(LocaleKey.IRCColor_Red.Lang(), true, Color.Red, 5),
+                new IRCColor(LocaleKey.IRCColor_MediumOrchid.Lang(), true, Color.MediumOrchid, 6),
+                new IRCColor(LocaleKey.IRCColor_Orange.Lang(), true, Color.Orange, 7),
+                new IRCColor(LocaleKey.IRCColor_Yellow.Lang(), true, Color.Yellow, 8),
+                new IRCColor(LocaleKey.IRCColor_Lime.Lang(), true, Color.Lime, 9),
+                new IRCColor(LocaleKey.IRCColor_Turquoise.Lang(), true, Color.Turquoise, 10),
+                new IRCColor(LocaleKey.IRCColor_LightSkyBlue.Lang(), true, Color.LightSkyBlue, 11),
+                new IRCColor(LocaleKey.IRCColor_RoyalBlue.Lang(), true, Color.RoyalBlue, 12),
+                new IRCColor(LocaleKey.IRCColor_Fuchsia.Lang(), true, Color.Fuchsia, 13),
+                new IRCColor(LocaleKey.IRCColor_Gray.Lang(), true, Color.LightGray, 14),
+                new IRCColor(LocaleKey.IRCColor_Gray2.Lang(), false, Color.Gray, 15)
             };
         }
 

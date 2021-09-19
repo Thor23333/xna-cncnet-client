@@ -28,6 +28,7 @@ namespace DTAConfig.OptionPanels
         private XNAClientDropDown ddIngameResolution;
         private XNAClientDropDown ddDetailLevel;
         private XNAClientDropDown ddRenderer;
+        private XNAClientDropDown ddLanguage;
         private XNAClientCheckBox chkWindowedMode;
         private XNAClientCheckBox chkBorderlessWindowedMode;
         private XNAClientCheckBox chkBackBufferInVRAM;
@@ -63,7 +64,7 @@ namespace DTAConfig.OptionPanels
             var lblIngameResolution = new XNALabel(WindowManager);
             lblIngameResolution.Name = "lblIngameResolution";
             lblIngameResolution.ClientRectangle = new Rectangle(12, 14, 0, 0);
-            lblIngameResolution.Text = "In-game Resolution:";
+            lblIngameResolution.Text = LocaleKey.Option_lblIngameResolution.Lang();
 
             ddIngameResolution = new XNAClientDropDown(WindowManager);
             ddIngameResolution.Name = "ddIngameResolution";
@@ -86,7 +87,7 @@ namespace DTAConfig.OptionPanels
             lblDetailLevel.Name = "lblDetailLevel";
             lblDetailLevel.ClientRectangle = new Rectangle(lblIngameResolution.X,
                 ddIngameResolution.Bottom + 16, 0, 0);
-            lblDetailLevel.Text = "Detail Level:";
+            lblDetailLevel.Text = LocaleKey.Option_lblDetailLevel.Lang();
 
             ddDetailLevel = new XNAClientDropDown(WindowManager);
             ddDetailLevel.Name = "ddDetailLevel";
@@ -95,15 +96,15 @@ namespace DTAConfig.OptionPanels
                 lblDetailLevel.Y - 2,
                 ddIngameResolution.Width, 
                 ddIngameResolution.Height);
-            ddDetailLevel.AddItem("Low");
-            ddDetailLevel.AddItem("Medium");
-            ddDetailLevel.AddItem("High");
+            ddDetailLevel.AddItem(LocaleKey.Option_ddDetailLevel_Low.Lang());
+            ddDetailLevel.AddItem(LocaleKey.Option_ddDetailLevel_Medium.Lang());
+            ddDetailLevel.AddItem(LocaleKey.Option_ddDetailLevel_High.Lang());
 
             var  lblRenderer = new XNALabel(WindowManager);
             lblRenderer.Name = "lblRenderer";
             lblRenderer.ClientRectangle = new Rectangle(lblDetailLevel.X,
                 ddDetailLevel.Bottom + 16, 0, 0);
-            lblRenderer.Text = "Renderer:";
+            lblRenderer.Text = LocaleKey.Option_lblRenderer.Lang();
 
             ddRenderer = new XNAClientDropDown(WindowManager);
             ddRenderer.Name = "ddRenderer";
@@ -141,7 +142,7 @@ namespace DTAConfig.OptionPanels
             chkWindowedMode.Name = "chkWindowedMode";
             chkWindowedMode.ClientRectangle = new Rectangle(lblDetailLevel.X,
                 ddRenderer.Bottom + 16, 0, 0);
-            chkWindowedMode.Text = "Windowed Mode";
+            chkWindowedMode.Text = LocaleKey.Option_chkWindowedMode.Lang();
             chkWindowedMode.CheckedChanged += ChkWindowedMode_CheckedChanged;
 
             chkBorderlessWindowedMode = new XNAClientCheckBox(WindowManager);
@@ -149,7 +150,7 @@ namespace DTAConfig.OptionPanels
             chkBorderlessWindowedMode.ClientRectangle = new Rectangle(
                 chkWindowedMode.X + 50,
                 chkWindowedMode.Bottom + 24, 0, 0);
-            chkBorderlessWindowedMode.Text = "Borderless Windowed Mode";
+            chkBorderlessWindowedMode.Text = LocaleKey.Option_chkBorderlessWindowedMode.Lang();
             chkBorderlessWindowedMode.AllowChecking = false;
 
             chkBackBufferInVRAM = new XNAClientCheckBox(WindowManager);
@@ -157,14 +158,14 @@ namespace DTAConfig.OptionPanels
             chkBackBufferInVRAM.ClientRectangle = new Rectangle(
                 lblDetailLevel.X,
                 chkBorderlessWindowedMode.Bottom + 28, 0, 0);
-            chkBackBufferInVRAM.Text = "Back Buffer in Video Memory" + Environment.NewLine +
-                "(lower performance, but is" + Environment.NewLine + "necessary on some systems)";
+            chkBackBufferInVRAM.Text = LocaleKey.Option_chkBackBufferInVRAM.Lang() + Environment.NewLine +
+                LocaleKey.Option_chkBackBufferInVRAM_l2.Lang() + Environment.NewLine + LocaleKey.Option_chkBackBufferInVRAM_l3.Lang();
 
             var lblClientResolution = new XNALabel(WindowManager);
             lblClientResolution.Name = "lblClientResolution";
             lblClientResolution.ClientRectangle = new Rectangle(
                 285, 14, 0, 0);
-            lblClientResolution.Text = "Client Resolution:";
+            lblClientResolution.Text = LocaleKey.Option_lblClientResolution.Lang();
 
             ddClientResolution = new XNAClientPreferredItemDropDown(WindowManager);
             ddClientResolution.Name = "ddClientResolution";
@@ -174,7 +175,7 @@ namespace DTAConfig.OptionPanels
                 Width - (lblClientResolution.Right + 24),
                 ddIngameResolution.Height);
             ddClientResolution.AllowDropDown = false;
-            ddClientResolution.PreferredItemLabel = "(recommended)";
+            ddClientResolution.PreferredItemLabel = LocaleKey.Option_ddClientResolution_prefer.Lang();
 
             var screenBounds = Screen.PrimaryScreen.Bounds;
 
@@ -216,7 +217,7 @@ namespace DTAConfig.OptionPanels
             chkBorderlessClient.ClientRectangle = new Rectangle(
                 lblClientResolution.X,
                 lblDetailLevel.Y, 0, 0);
-            chkBorderlessClient.Text = "Fullscreen Client";
+            chkBorderlessClient.Text = LocaleKey.Option_chkBorderlessClient.Lang();
             chkBorderlessClient.CheckedChanged += ChkBorderlessMenu_CheckedChanged;
             chkBorderlessClient.Checked = true;
 
@@ -225,7 +226,7 @@ namespace DTAConfig.OptionPanels
             lblClientTheme.ClientRectangle = new Rectangle(
                 lblClientResolution.X,
                 lblRenderer.Y, 0, 0);
-            lblClientTheme.Text = "Client Theme:";
+            lblClientTheme.Text = LocaleKey.Option_lblClientTheme.Lang();
 
             ddClientTheme = new XNAClientDropDown(WindowManager);
             ddClientTheme.Name = "ddClientTheme";
@@ -239,6 +240,24 @@ namespace DTAConfig.OptionPanels
 
             for (int i = 0; i < themeCount; i++)
                 ddClientTheme.AddItem(ClientConfiguration.Instance.GetThemeInfoFromIndex(i)[0]);
+
+
+            var lblLanguage = new XNALabel(WindowManager);
+            lblLanguage.Name = "lblLanguage";
+            lblLanguage.ClientRectangle = new Rectangle(
+                lblClientResolution.X,
+                chkWindowedMode.Y, 0, 0);
+            lblLanguage.Text = LocaleKey.Option_lblLanguage.Lang();
+
+            ddLanguage = new XNAClientDropDown(WindowManager);
+            ddLanguage.Name = "ddLanguage";
+            ddLanguage.ClientRectangle = new Rectangle(
+                ddClientResolution.X,
+                lblLanguage.Y - 2,
+                ddClientResolution.Width,
+                ddRenderer.Height);
+
+            GetLanguages();
 
 #if !YR
             lblCompatibilityFixes = new XNALabel(WindowManager);
@@ -302,6 +321,8 @@ namespace DTAConfig.OptionPanels
             AddChild(ddDetailLevel);
             AddChild(lblIngameResolution);
             AddChild(ddIngameResolution);
+            AddChild(lblLanguage);
+            AddChild(ddLanguage);
         }
 
         /// <summary>
@@ -363,6 +384,21 @@ namespace DTAConfig.OptionPanels
             GameProcessLogic.UseQres = selectedRenderer.UseQres;
             GameProcessLogic.SingleCoreAffinity = selectedRenderer.SingleCoreAffinity;
 		}
+        private void GetLanguages()
+        {
+            var languages = LocalizationManager.GetAllLocaleTypeFromIni();
+            foreach (var language in languages)
+            {
+                if (!language.Value.Hidden)
+                {
+                    ddLanguage.AddItem(new XNADropDownItem()
+                    {
+                        Text = language.Value.UIName,
+                        Tag = language.Key
+                    });
+                }
+            }
+        }
 
 #if !YR
 
@@ -592,6 +628,12 @@ namespace DTAConfig.OptionPanels
 
             ddRenderer.SelectedIndex = index;
         }
+        private void LoadLanguages()
+        {
+            int selectedLangIndex = ddLanguage.Items.FindIndex(
+                ddi => ddi.Tag.ToString() == UserINISettings.Instance.Language);
+            ddLanguage.SelectedIndex = selectedLangIndex > -1 ? selectedLangIndex : 0;
+        }
 
         public override void Load()
         {
@@ -599,6 +641,8 @@ namespace DTAConfig.OptionPanels
 
             LoadRenderer();
             ddDetailLevel.SelectedIndex = UserINISettings.Instance.DetailLevel;
+
+            LoadLanguages();
 
             string currentRes = UserINISettings.Instance.IngameScreenWidth.Value +
                 "x" + UserINISettings.Instance.IngameScreenHeight.Value;
@@ -743,10 +787,16 @@ namespace DTAConfig.OptionPanels
 
             IniSettings.BorderlessWindowedClient.Value = chkBorderlessClient.Checked;
 
-            if (IniSettings.ClientTheme != ddClientTheme.SelectedItem.Text)
+            if (IniSettings.ClientTheme.Value != ddClientTheme.SelectedItem.Text)
                 restartRequired = true;
 
             IniSettings.ClientTheme.Value = ddClientTheme.SelectedItem.Text;
+
+
+            if (IniSettings.Language.Value != (string)ddLanguage.SelectedItem.Tag)
+                restartRequired = true;
+
+            IniSettings.Language.Value = (string)ddLanguage.SelectedItem.Tag;
 
 #if YR
             IniSettings.BackBufferInVRAM.Value = chkBackBufferInVRAM.Checked;

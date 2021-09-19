@@ -36,7 +36,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             //InitPlayerOptionDropdowns(128, 98, 90, 48, 55, new Point(6, 24));
             InitPlayerOptionDropdowns();
 
-            btnLeaveGame.Text = LocalizationLabel.current[LocaleKey.MainMenu];
+            btnLeaveGame.Text = LocaleKey.MainMenu.Lang();
 
             //MapPreviewBox.EnableContextMenu = true;
 

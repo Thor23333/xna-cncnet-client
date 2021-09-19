@@ -1753,6 +1753,6 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
         #endregion
 
-        public override string GetSwitchName() => "Game Lobby";
+        public override string GetSwitchName() => LocaleKey.GameLobby.Lang();
     }
 }

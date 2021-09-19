@@ -2,6 +2,7 @@
 using Rampastring.XNAUI;
 using Microsoft.Xna.Framework;
 using DTAClient.Domain.Multiplayer;
+using ClientGUI;
 
 namespace DTAClient.DXGUI.Multiplayer
 {

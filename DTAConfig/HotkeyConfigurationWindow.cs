@@ -168,7 +168,7 @@ namespace DTAConfig
             var btnSave = new XNAClientButton(WindowManager);
             btnSave.Name = "btnSave";
             btnSave.ClientRectangle = new Rectangle(12, lbHotkeys.Bottom + 12, 92, 23);
-            btnSave.Text = "Save";
+            btnSave.Text = LocaleKey.Option_btnSave.Lang();
             btnSave.LeftClick += BtnSave_LeftClick;
 
             var btnResetAllKeys = new XNAClientButton(WindowManager);
@@ -182,7 +182,7 @@ namespace DTAConfig
             var btnCancel = new XNAClientButton(WindowManager);
             btnCancel.Name = "btnExit";
             btnCancel.ClientRectangle = new Rectangle(Width - 104, btnSave.Y, 92, 23);
-            btnCancel.Text = "Cancel";
+            btnCancel.Text = LocaleKey.Option_btnCancel.Lang();
             btnCancel.LeftClick += BtnCancel_LeftClick;
 
             AddChild(lbHotkeys);

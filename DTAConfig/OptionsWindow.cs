@@ -42,25 +42,25 @@ namespace DTAConfig
             tabControl.ClientRectangle = new Rectangle(12, 12, 0, 23);
             tabControl.FontIndex = 1;
             tabControl.ClickSound = new EnhancedSoundEffect("button.wav");
-            tabControl.AddTab("Display", 92);
-            tabControl.AddTab("Audio", 92);
-            tabControl.AddTab("Game", 92);
-            tabControl.AddTab("CnCNet", 92);
-            tabControl.AddTab("Updater", 92);
-            tabControl.AddTab("Components", 92);
+            tabControl.AddTab(LocaleKey.Option_tabDisplay.Lang(), 92);
+            tabControl.AddTab(LocaleKey.Option_tabAudio.Lang(), 92);
+            tabControl.AddTab(LocaleKey.Option_tabGame.Lang(), 92);
+            tabControl.AddTab(LocaleKey.Option_tabCnCNet.Lang(), 92);
+            tabControl.AddTab(LocaleKey.Option_tabUpdater.Lang(), 92);
+            tabControl.AddTab(LocaleKey.Option_tabComponents.Lang(), 92);
             tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
 
             var btnCancel = new XNAClientButton(WindowManager);
             btnCancel.Name = "btnCancel";
             btnCancel.ClientRectangle = new Rectangle(Width - 104,
                 Height - 35, 92, 23);
-            btnCancel.Text = "Cancel";
+            btnCancel.Text = LocaleKey.Option_btnCancel.Lang();
             btnCancel.LeftClick += BtnBack_LeftClick;
 
             var btnSave = new XNAClientButton(WindowManager);
             btnSave.Name = "btnSave";
             btnSave.ClientRectangle = new Rectangle(12, btnCancel.Y, 92, 23);
-            btnSave.Text = "Save";
+            btnSave.Text = LocaleKey.Option_btnSave.Lang();
             btnSave.LeftClick += BtnSave_LeftClick;
 
             displayOptionsPanel = new DisplayOptionsPanel(WindowManager, UserINISettings.Instance);

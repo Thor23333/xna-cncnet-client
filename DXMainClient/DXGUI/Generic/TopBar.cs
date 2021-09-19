@@ -123,19 +123,19 @@ namespace DTAClient.DXGUI.Generic
             btnMainButton = new XNAClientButton(WindowManager);
             btnMainButton.Name = "btnMainButton";
             btnMainButton.ClientRectangle = new Rectangle(12, 9, 160, 23);
-            btnMainButton.Text = "Main Menu (F2)";
+            btnMainButton.Text = LocaleKey.MainMenuWithHotKey.Lang();
             btnMainButton.LeftClick += BtnMainButton_LeftClick;
 
             btnCnCNetLobby = new XNAClientButton(WindowManager);
             btnCnCNetLobby.Name = "btnCnCNetLobby";
             btnCnCNetLobby.ClientRectangle = new Rectangle(184, 9, 160, 23);
-            btnCnCNetLobby.Text = "CnCNet Lobby (F3)";
+            btnCnCNetLobby.Text = LocaleKey.CnCNetLobbyWithHotKey.Lang();
             btnCnCNetLobby.LeftClick += BtnCnCNetLobby_LeftClick;
 
             btnPrivateMessages = new XNAClientButton(WindowManager);
             btnPrivateMessages.Name = "btnPrivateMessages";
             btnPrivateMessages.ClientRectangle = new Rectangle(356, 9, 160, 23);
-            btnPrivateMessages.Text = "Private Messages (F4)";
+            btnPrivateMessages.Text = LocaleKey.PrivateMessageWithHotKey.Lang();
             btnPrivateMessages.LeftClick += BtnPrivateMessages_LeftClick;
 
             lblDate = new XNALabel(WindowManager);
@@ -158,20 +158,20 @@ namespace DTAClient.DXGUI.Generic
             btnLogout.Name = "btnLogout";
             btnLogout.ClientRectangle = new Rectangle(lblDate.X - 87, 9, 75, 23);
             btnLogout.FontIndex = 1;
-            btnLogout.Text = "Log Out";
+            btnLogout.Text = LocaleKey.LogOut.Lang();
             btnLogout.AllowClick = false;
             btnLogout.LeftClick += BtnLogout_LeftClick;
 
             btnOptions = new XNAClientButton(WindowManager);
             btnOptions.Name = "btnOptions";
             btnOptions.ClientRectangle = new Rectangle(btnLogout.X - 122, 9, 110, 23);
-            btnOptions.Text = "Options (F12)";
+            btnOptions.Text = LocaleKey.OptionWithHotKey.Lang();
             btnOptions.LeftClick += BtnOptions_LeftClick;
 
             lblConnectionStatus = new XNALabel(WindowManager);
             lblConnectionStatus.Name = "lblConnectionStatus";
             lblConnectionStatus.FontIndex = 1;
-            lblConnectionStatus.Text = "OFFLINE";
+            lblConnectionStatus.Text = LocaleKey.Offine.Lang();
 
             AddChild(btnMainButton);
             AddChild(btnCnCNetLobby);
@@ -187,7 +187,7 @@ namespace DTAClient.DXGUI.Generic
                 lblCnCNetStatus = new XNALabel(WindowManager);
                 lblCnCNetStatus.Name = "lblCnCNetStatus";
                 lblCnCNetStatus.FontIndex = 1;
-                lblCnCNetStatus.Text = ClientConfiguration.Instance.LocalGame.ToUpper() + " PLAYERS ONLINE:";
+                lblCnCNetStatus.Text = ClientConfiguration.Instance.LocalGame.ToUpper() + " " + LocaleKey.CnCNetPlayerCounter.Lang();
                 lblCnCNetPlayerCount = new XNALabel(WindowManager);
                 lblCnCNetPlayerCount.Name = "lblCnCNetPlayerCount";
                 lblCnCNetPlayerCount.FontIndex = 1;
@@ -220,7 +220,7 @@ namespace DTAClient.DXGUI.Generic
             lock (locker)
             {
                 if (e.PlayerCount == -1)
-                    lblCnCNetPlayerCount.Text = "N/A";
+                    lblCnCNetPlayerCount.Text = LocaleKey.NoCnCNetPlayer.Lang();
                 else
                     lblCnCNetPlayerCount.Text = e.PlayerCount.ToString();
             }
@@ -229,29 +229,29 @@ namespace DTAClient.DXGUI.Generic
         private void ConnectionManager_ConnectionLost(object sender, Online.EventArguments.ConnectionLostEventArgs e)
         {
             if (!lanMode)
-                ConnectionEvent("OFFLINE");
+                ConnectionEvent(LocaleKey.Offine.Lang());
         }
 
         private void ConnectionManager_ConnectAttemptFailed(object sender, EventArgs e)
         {
             if (!lanMode)
-                ConnectionEvent("OFFLINE");
+                ConnectionEvent(LocaleKey.Offine.Lang());
         }
 
         private void ConnectionManager_AttemptedServerChanged(object sender, Online.EventArguments.AttemptedServerEventArgs e)
         {
-            ConnectionEvent("CONNECTING...");
+            ConnectionEvent(LocaleKey.Connecting.Lang());
             BringDown();
         }
 
         private void ConnectionManager_WelcomeMessageReceived(object sender, Online.EventArguments.ServerMessageEventArgs e)
-            => ConnectionEvent("CONNECTED");
+            => ConnectionEvent(LocaleKey.Connected.Lang());
 
         private void ConnectionManager_Disconnected(object sender, EventArgs e)
         {
             btnLogout.AllowClick = false;
             if (!lanMode)
-                ConnectionEvent("OFFLINE");
+                ConnectionEvent(LocaleKey.Offine.Lang());
         }
 
         private void ConnectionEvent(string text)
@@ -377,9 +377,9 @@ namespace DTAClient.DXGUI.Generic
             this.lanMode = lanMode;
             SetSwitchButtonsClickable(!lanMode);
             if (lanMode)
-                ConnectionEvent("LAN MODE");
+                ConnectionEvent(LocaleKey.LANMode.Lang());
             else
-                ConnectionEvent("OFFLINE");
+                ConnectionEvent(LocaleKey.Offine.Lang()) ;
         }
 
         public override void Update(GameTime gameTime)

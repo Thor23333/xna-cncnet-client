@@ -348,12 +348,27 @@ namespace DTAClient.DXGUI.Multiplayer.CnCNet
                 return;
             }
 
-            playerContextMenu.Items[0].Text = cncnetUserData.IsFriend(lbUserList.SelectedItem.Text) ? "Remove Friend" : "Add Friend";
-            
+            if (cncnetUserData.IsFriend(lbUserList.SelectedItem.Text))
+            {
+                playerContextMenu.Items[0].Text = LocaleKey.Lobby_RemoveFriend.Lang();
+            }
+            else
+            {
+                playerContextMenu.Items[0].Text = LocaleKey.Lobby_AddFriend.Lang();
+            }
+
             if ((bool)lbUserList.SelectedItem.Tag)
             {
                 IRCUser iu = connectionManager.UserList.Find(u => u.Name == lbUserList.SelectedItem.Text);
-                playerContextMenu.Items[1].Text = cncnetUserData.IsIgnored(iu.Ident) ? "Unblock" : "Block";
+                if (cncnetUserData.IsIgnored(iu.Ident))
+                {
+                    playerContextMenu.Items[1].Text = LocaleKey.Lobby_Unblock.Lang();
+
+                }
+                else
+                {
+                    playerContextMenu.Items[1].Text = LocaleKey.Lobby_Block.Lang();
+                }
             }
 
             playerContextMenu.Open(GetCursorPoint());

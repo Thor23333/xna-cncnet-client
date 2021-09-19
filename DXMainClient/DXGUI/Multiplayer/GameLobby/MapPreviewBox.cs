@@ -1,4 +1,5 @@
 ﻿using ClientCore;
+using ClientGUI;
 using DTAClient.Domain.Multiplayer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
