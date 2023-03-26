@@ -525,7 +525,7 @@ namespace DTAClient.DXGUI.Multiplayer
             if (hg.Game.InternalName.ToUpper() != localGame.ToUpper())
             {
                 lbChatMessages.AddMessage(
-                    LocaleKey.Lobby_LocalGameIDMismatchError.Lang().Format(
+                    LocaleKey.Lobby_LocalGameIDMismatchError.Lang(
                         gameCollection.GetGameNameFromInternalName(hg.Game.InternalName)));
                 return;
             }
@@ -558,7 +558,7 @@ namespace DTAClient.DXGUI.Multiplayer
                 // TODO Show warning
             }
 
-            lbChatMessages.AddMessage(LocaleKey.Lobby_JoiningGameTip.Lang().Format(hg.RoomName));
+            lbChatMessages.AddMessage(LocaleKey.Lobby_JoiningGameTip.Lang(hg.RoomName));
 
             try
             {

@@ -133,10 +133,8 @@ namespace DTAConfig
         {
             if (CustomComponent.IsDownloadInProgress())
             {
-                var msgBox = new XNAMessageBox(WindowManager, "Downloads in progress",
-                    "Optional component downloads are in progress. The downloads will be cancelled if you exit the Options menu." +
-                    Environment.NewLine + Environment.NewLine +
-                    "Are you sure you want to continue?", XNAMessageBoxButtons.YesNo);
+                var msgBox = new XNAMessageBox(WindowManager, LocaleKey.Option_msgboxDownloadInProgressCaption.Lang(),
+                    LocaleKey.Option_msgboxDownloadInProgressDesc.Lang(), XNAMessageBoxButtons.YesNo);
                 msgBox.Show();
                 msgBox.YesClickedAction = ExitDownloadCancelConfirmation_YesClicked;
 
@@ -158,10 +156,8 @@ namespace DTAConfig
         {
             if (CustomComponent.IsDownloadInProgress())
             {
-                var msgBox = new XNAMessageBox(WindowManager, "Downloads in progress",
-                    "Optional component downloads are in progress. The downloads will be cancelled if you exit the Options menu." +
-                    Environment.NewLine + Environment.NewLine +
-                    "Are you sure you want to continue?", XNAMessageBoxButtons.YesNo);
+                var msgBox = new XNAMessageBox(WindowManager, LocaleKey.Option_msgboxDownloadInProgressCaption.Lang(),
+                    LocaleKey.Option_msgboxDownloadInProgressDesc.Lang(), XNAMessageBoxButtons.YesNo);
                 msgBox.Show();
                 msgBox.YesClickedAction = SaveDownloadCancelConfirmation_YesClicked;
 
@@ -194,18 +190,16 @@ namespace DTAConfig
             catch (Exception ex)
             {
                 Logger.Log("Saving settings failed! Error message: " + ex.Message);
-                XNAMessageBox.Show(WindowManager, "Saving Settings Failed",
-                    "Saving settings failed! Error message: " + ex.Message);
+                XNAMessageBox.Show(WindowManager, LocaleKey.Option_msgboxSaveFailCaption.Lang(),
+                    LocaleKey.Option_msgboxSaveFailDesc.Lang(ex.Message)); 
             }
 
             Disable();
 
             if (restartRequired)
             {
-                var msgBox = new XNAMessageBox(WindowManager, "Restart Required",
-                    "The client needs to be restarted for some of the changes to take effect." +
-                    Environment.NewLine + Environment.NewLine +
-                    "Do you want to restart now?", XNAMessageBoxButtons.YesNo);
+                var msgBox = new XNAMessageBox(WindowManager, LocaleKey.Option_msgboxRestartCaption.Lang(),
+                    LocaleKey.Option_msgboxRestartDesc.Lang(), XNAMessageBoxButtons.YesNo);
                 msgBox.Show();
                 msgBox.YesClickedAction = RestartMsgBox_YesClicked;
             }

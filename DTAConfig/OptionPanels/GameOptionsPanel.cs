@@ -49,7 +49,7 @@ namespace DTAConfig.OptionPanels
             lblScrollRate.Name = "lblScrollRate";
             lblScrollRate.ClientRectangle = new Rectangle(12,
                 14, 0, 0);
-            lblScrollRate.Text = "Scroll Rate:";
+            lblScrollRate.Text = LocaleKey.Option_lblScrollRate.Lang();
 
             lblScrollRateValue = new XNALabel(WindowManager);
             lblScrollRateValue.Name = "lblScrollRateValue";
@@ -76,22 +76,22 @@ namespace DTAConfig.OptionPanels
             chkScrollCoasting.ClientRectangle = new Rectangle(
                 lblScrollRate.X,
                 trbScrollRate.Bottom + 20, 0, 0);
-            chkScrollCoasting.Text = "Scroll Coasting";
+            chkScrollCoasting.Text = LocaleKey.Option_chkScrollCoasting.Lang();
 
             chkTargetLines = new XNAClientCheckBox(WindowManager);
             chkTargetLines.Name = "chkTargetLines";
             chkTargetLines.ClientRectangle = new Rectangle(
                 lblScrollRate.X,
                 chkScrollCoasting.Bottom + 24, 0, 0);
-            chkTargetLines.Text = "Target Lines";
+            chkTargetLines.Text = LocaleKey.Option_chkTargetLines.Lang();
 
             chkTooltips = new XNAClientCheckBox(WindowManager);
             chkTooltips.Name = "chkTooltips";
-            chkTooltips.Text = "Tooltips";
+            chkTooltips.Text = LocaleKey.Option_chkTooltips.Lang();
 
             var lblPlayerName = new XNALabel(WindowManager);
             lblPlayerName.Name = "lblPlayerName";
-            lblPlayerName.Text = "Player Name*:";
+            lblPlayerName.Text = LocaleKey.Option_lblPlayerName.Lang();
 
 #if YR
             chkShowHiddenObjects = new XNAClientCheckBox(WindowManager);
@@ -99,7 +99,7 @@ namespace DTAConfig.OptionPanels
             chkShowHiddenObjects.ClientRectangle = new Rectangle(
                 lblScrollRate.X,
                 chkTargetLines.Bottom + 24, 0, 0);
-            chkShowHiddenObjects.Text = "Show Hidden Objects";
+            chkShowHiddenObjects.Text = LocaleKey.Option_chkShowHiddenObjects.Lang();
 
             chkTooltips.ClientRectangle = new Rectangle(
                 lblScrollRate.X,
@@ -122,7 +122,7 @@ namespace DTAConfig.OptionPanels
             chkBlackChatBackground.ClientRectangle = new Rectangle(
                 chkScrollCoasting.X,
                 chkTooltips.Bottom + 24, 0, 0);
-            chkBlackChatBackground.Text = "Use black background for in-game chat messages";
+            chkBlackChatBackground.Text = LocaleKey.Option_chkBlackChatBackground.Lang();
 
             AddChild(chkBlackChatBackground);
 #endif
@@ -133,7 +133,7 @@ namespace DTAConfig.OptionPanels
             chkAltToUndeploy.ClientRectangle = new Rectangle(
                 chkScrollCoasting.X,
                 chkBlackChatBackground.Bottom + 24, 0, 0);
-            chkAltToUndeploy.Text = "Undeploy units by holding Alt key instead of a regular move command";
+            chkAltToUndeploy.Text = LocaleKey.Option_chkAltToUndeploy.Lang();
 
             AddChild(chkAltToUndeploy);
 
@@ -156,8 +156,7 @@ namespace DTAConfig.OptionPanels
             lblNotice.Name = "lblNotice";
             lblNotice.ClientRectangle = new Rectangle(lblPlayerName.X,
                 lblPlayerName.Bottom + 30, 0, 0);
-            lblNotice.Text = "* If you are currently connected to CnCNet, you need to log out and reconnect" +
-                Environment.NewLine + "for your new name to be applied.";
+            lblNotice.Text = LocaleKey.Option_lblNotice.Lang();
 
             hotkeyConfigWindow = new HotkeyConfigurationWindow(WindowManager);
             DarkeningPanel.AddAndInitializeWithControl(WindowManager, hotkeyConfigWindow);
@@ -166,7 +165,7 @@ namespace DTAConfig.OptionPanels
             var btnConfigureHotkeys = new XNAClientButton(WindowManager);
             btnConfigureHotkeys.Name = "btnConfigureHotkeys";
             btnConfigureHotkeys.ClientRectangle = new Rectangle(lblPlayerName.X, lblNotice.Bottom + 36, 160, 23);
-            btnConfigureHotkeys.Text = "Configure Hotkeys";
+            btnConfigureHotkeys.Text = LocaleKey.Option_btnConfigureHotkeys.Lang();
             btnConfigureHotkeys.LeftClick += BtnConfigureHotkeys_LeftClick;
 
             AddChild(lblScrollRate);

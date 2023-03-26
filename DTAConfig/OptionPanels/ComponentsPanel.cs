@@ -36,20 +36,20 @@ namespace DTAConfig.OptionPanels
 
             foreach (CustomComponent c in CUpdater.CustomComponents)
             {
-                string buttonText = "Not Available";
+                string buttonText = LocaleKey.NotAvailable.Lang();
 
                 if (File.Exists(ProgramConstants.GamePath + c.LocalPath))
                 {
-                    buttonText = "Uninstall";
+                    buttonText = LocaleKey.Uninstall.Lang();
 
                     if (c.LocalIdentifier != c.RemoteIdentifier)
-                        buttonText = "Update";
+                        buttonText = LocaleKey.Update.Lang();
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty(c.RemoteIdentifier))
                     {
-                        buttonText = "Install";
+                        buttonText = LocaleKey.Install.Lang();
                     }
                 }
 
@@ -87,21 +87,21 @@ namespace DTAConfig.OptionPanels
 
             foreach (CustomComponent c in CUpdater.CustomComponents)
             {
-                string buttonText = "Not Available";
+                string buttonText = LocaleKey.NotAvailable.Lang();
 
                 if (File.Exists(ProgramConstants.GamePath + c.LocalPath))
                 {
-                    buttonText = "Uninstall";
+                    buttonText = LocaleKey.Uninstall.Lang();
                     buttonEnabled = true;
 
                     if (c.LocalIdentifier != c.RemoteIdentifier)
-                        buttonText = "Update (" + GetSizeString(c.RemoteSize) + ")";
+                        buttonText = LocaleKey.Update.Lang() + " (" + GetSizeString(c.RemoteSize) + ")";
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty(c.RemoteIdentifier))
                     {
-                        buttonText = "Install (" + GetSizeString(c.RemoteSize) + ")";
+                        buttonText = LocaleKey.Install.Lang() + " (" + GetSizeString(c.RemoteSize) + ")";
                         buttonEnabled = true;
                     }
                 }
@@ -134,7 +134,7 @@ namespace DTAConfig.OptionPanels
                 if (cc.LocalIdentifier == cc.RemoteIdentifier)
                 {
                     File.Delete(ProgramConstants.GamePath + cc.LocalPath);
-                    btn.Text = "Install";
+                    btn.Text = LocaleKey.Install.Lang();
                     return;
                 }
 
@@ -147,14 +147,9 @@ namespace DTAConfig.OptionPanels
             }
             else
             {
-                var msgBox = new XNAMessageBox(WindowManager, "Confirmation Required",
-                    "To enable " + cc.GUIName + " the Client will download the necessary files to your game directory." +
-                    Environment.NewLine + Environment.NewLine +
-                    "This will take an additional " + GetSizeString(cc.RemoteSize) + " of disk space, and the download may last" +
-                    Environment.NewLine +
-                    "from a few minutes to multiple hours depending on your Internet connection speed." +
-                    Environment.NewLine + Environment.NewLine +
-                    "You will not be able to play during the download. Do you want to continue?", XNAMessageBoxButtons.YesNo);
+                var msgBox = new XNAMessageBox(WindowManager, LocaleKey.Option_msgboxInstallCaption.Lang(),
+                    LocaleKey.Option_msgboxInstallDesc.Lang(cc.GUIName, GetSizeString(cc.RemoteSize)),
+                    XNAMessageBoxButtons.YesNo);
                 msgBox.Tag = btn;
 
                 msgBox.Show();
@@ -203,7 +198,7 @@ namespace DTAConfig.OptionPanels
             percentage = Math.Min(percentage, 100);
 
             var btn = installationButtons.Find(b => object.ReferenceEquals(b.Tag, cc));
-            btn.Text = "Downloading.. " + percentage + "%";
+            btn.Text = LocaleKey.Downloading.Lang() + ".. " + percentage + "%";
         }
 
         /// <summary>
@@ -228,23 +223,20 @@ namespace DTAConfig.OptionPanels
             {
                 if (!downloadCancelled)
                 {
-                    XNAMessageBox.Show(WindowManager, "Optional Component Download Failed",
-                        string.Format("Download of optional component {0} failed." + Environment.NewLine +
-                        "See client.log for details." + Environment.NewLine + Environment.NewLine +
-                        "If this problem continues, please contact your mod's authors for support.",
-                        cc.GUIName));
+                    XNAMessageBox.Show(WindowManager, LocaleKey.Option_msgboxDownloadFailCaption.Lang(),
+                        LocaleKey.Option_msgboxDownloadFailDesc.Lang(cc.GUIName));
                 }
 
-                btn.Text = "Install (" + GetSizeString(cc.RemoteSize) + ")";
+                btn.Text = LocaleKey.Install.Lang() + " (" + GetSizeString(cc.RemoteSize) + ")";
 
                 if (File.Exists(ProgramConstants.GamePath + cc.LocalPath))
-                    btn.Text = "Update (" + GetSizeString(cc.RemoteSize) + ")";
+                    btn.Text = LocaleKey.Update.Lang() + " (" + GetSizeString(cc.RemoteSize) + ")";
             }
             else
             {
-                XNAMessageBox.Show(WindowManager, "Download Completed",
-                    string.Format("Download of optional component {0} completed succesfully.", cc.GUIName));
-                btn.Text = "Uninstall";
+                XNAMessageBox.Show(WindowManager, LocaleKey.Option_msgboxDownloadCompleteCaption.Lang(),
+                    LocaleKey.Option_msgboxDownloadCompleteDesc.Lang(cc.GUIName));
+                btn.Text = LocaleKey.Uninstall.Lang();
             }
         }
 

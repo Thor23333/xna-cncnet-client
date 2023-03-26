@@ -31,8 +31,7 @@ namespace DTAConfig.OptionPanels
             var lblDescription = new XNALabel(WindowManager);
             lblDescription.Name = "lblDescription";
             lblDescription.ClientRectangle = new Rectangle(12, 12, 0, 0);
-            lblDescription.Text = "To change download server priority, select a server from the list and" +
-                Environment.NewLine + "use the Move Up / Down buttons to change its priority.";
+            lblDescription.Text = LocaleKey.Option_lblDescription.Lang();
 
             lbUpdateServerList = new XNAListBox(WindowManager);
             lbUpdateServerList.Name = "lblUpdateServerList";
@@ -45,7 +44,7 @@ namespace DTAConfig.OptionPanels
             btnMoveUp.Name = "btnMoveUp";
             btnMoveUp.ClientRectangle = new Rectangle(lbUpdateServerList.X,
                 lbUpdateServerList.Bottom + 12, 133, 23);
-            btnMoveUp.Text = "Move Up";
+            btnMoveUp.Text = LocaleKey.Option_btnMoveUp.Lang();
             btnMoveUp.LeftClick += btnMoveUp_LeftClick;
 
             var btnMoveDown = new XNAClientButton(WindowManager);
@@ -53,19 +52,19 @@ namespace DTAConfig.OptionPanels
             btnMoveDown.ClientRectangle = new Rectangle(
                 lbUpdateServerList.Right - 133,
                 btnMoveUp.Y, 133, 23);
-            btnMoveDown.Text = "Move Down";
+            btnMoveDown.Text = LocaleKey.Option_btnMoveDown.Lang();
             btnMoveDown.LeftClick += btnMoveDown_LeftClick;
 
             chkAutoCheck = new XNAClientCheckBox(WindowManager);
             chkAutoCheck.Name = "chkAutoCheck";
             chkAutoCheck.ClientRectangle = new Rectangle(lblDescription.X,
                 btnMoveUp.Bottom + 24, 0, 0);
-            chkAutoCheck.Text = "Check for updates automatically";
+            chkAutoCheck.Text = LocaleKey.Option_chkAutoCheck.Lang();
 
             btnForceUpdate = new XNAClientButton(WindowManager);
             btnForceUpdate.Name = "btnForceUpdate";
             btnForceUpdate.ClientRectangle = new Rectangle(btnMoveDown.X, btnMoveDown.Bottom + 24, 133, 23);
-            btnForceUpdate.Text = "Force Update";
+            btnForceUpdate.Text = LocaleKey.Option_btnForceUpdate.Lang();
             btnForceUpdate.LeftClick += BtnForceUpdate_LeftClick;
 
             AddChild(lblDescription);
@@ -78,16 +77,8 @@ namespace DTAConfig.OptionPanels
 
         private void BtnForceUpdate_LeftClick(object sender, EventArgs e)
         {
-            var msgBox = new XNAMessageBox(WindowManager, "Force Update Confirmation",
-                    "WARNING: Force update will result in files being re-verified" + Environment.NewLine +
-                    "and re-downloaded. While this may fix problems with game" + Environment.NewLine +
-                    "files, this also may delete some custom modifications" + Environment.NewLine +
-                    "made to this installation. Use at your own risk!" +
-                    Environment.NewLine + Environment.NewLine +
-                    "If you proceed, the options window will close and the" + Environment.NewLine +
-                    "client will proceed to checking for updates." + 
-                    Environment.NewLine + Environment.NewLine +
-                    "Do you really want to force update?" + Environment.NewLine, XNAMessageBoxButtons.YesNo);
+            var msgBox = new XNAMessageBox(WindowManager, LocaleKey.Option_msgboxForceUpdateCaption.Lang(),
+                    LocaleKey.Option_msgboxForceUpdateDesc.Lang(), XNAMessageBoxButtons.YesNo);
             msgBox.Show();
             msgBox.YesClickedAction = ForceUpdateMsgBox_YesClicked;
         }

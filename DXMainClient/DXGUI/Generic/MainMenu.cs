@@ -127,6 +127,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnNewCampaign = new XNAClientButton(WindowManager);
             btnNewCampaign.Name = nameof(btnNewCampaign);
+            btnNewCampaign.Text = LocaleKey.Main_btnNewCampaign.Lang();
             btnNewCampaign.IdleTexture = AssetLoader.LoadTexture("MainMenu/campaign.png");
             btnNewCampaign.HoverTexture = AssetLoader.LoadTexture("MainMenu/campaign_c.png");
             btnNewCampaign.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -134,6 +135,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnLoadGame = new XNAClientButton(WindowManager);
             btnLoadGame.Name = nameof(btnLoadGame);
+            btnLoadGame.Text = LocaleKey.Main_btnLoadGame.Lang();
             btnLoadGame.IdleTexture = AssetLoader.LoadTexture("MainMenu/loadmission.png");
             btnLoadGame.HoverTexture = AssetLoader.LoadTexture("MainMenu/loadmission_c.png");
             btnLoadGame.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -141,6 +143,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnSkirmish = new XNAClientButton(WindowManager);
             btnSkirmish.Name = nameof(btnSkirmish);
+            btnSkirmish.Text = LocaleKey.Main_btnSkirmish.Lang();
             btnSkirmish.IdleTexture = AssetLoader.LoadTexture("MainMenu/skirmish.png");
             btnSkirmish.HoverTexture = AssetLoader.LoadTexture("MainMenu/skirmish_c.png");
             btnSkirmish.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -148,6 +151,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnCnCNet = new XNAClientButton(WindowManager);
             btnCnCNet.Name = nameof(btnCnCNet);
+            btnCnCNet.Text = LocaleKey.Main_btnCnCNet.Lang();
             btnCnCNet.IdleTexture = AssetLoader.LoadTexture("MainMenu/cncnet.png");
             btnCnCNet.HoverTexture = AssetLoader.LoadTexture("MainMenu/cncnet_c.png");
             btnCnCNet.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -155,6 +159,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnLan = new XNAClientButton(WindowManager);
             btnLan.Name = nameof(btnLan);
+            btnLan.Text = LocaleKey.Main_btnLan.Lang();
             btnLan.IdleTexture = AssetLoader.LoadTexture("MainMenu/lan.png");
             btnLan.HoverTexture = AssetLoader.LoadTexture("MainMenu/lan_c.png");
             btnLan.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -162,6 +167,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnOptions = new XNAClientButton(WindowManager);
             btnOptions.Name = nameof(btnOptions);
+            btnOptions.Text = LocaleKey.Main_btnOptions.Lang();
             btnOptions.IdleTexture = AssetLoader.LoadTexture("MainMenu/options.png");
             btnOptions.HoverTexture = AssetLoader.LoadTexture("MainMenu/options_c.png");
             btnOptions.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -169,6 +175,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnMapEditor = new XNAClientButton(WindowManager);
             btnMapEditor.Name = nameof(btnMapEditor);
+            btnMapEditor.Text = LocaleKey.Main_btnMapEditor.Lang();
             btnMapEditor.IdleTexture = AssetLoader.LoadTexture("MainMenu/mapeditor.png");
             btnMapEditor.HoverTexture = AssetLoader.LoadTexture("MainMenu/mapeditor_c.png");
             btnMapEditor.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -176,6 +183,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnStatistics = new XNAClientButton(WindowManager);
             btnStatistics.Name = nameof(btnStatistics);
+            btnStatistics.Text = LocaleKey.Main_btnStatistics.Lang();
             btnStatistics.IdleTexture = AssetLoader.LoadTexture("MainMenu/statistics.png");
             btnStatistics.HoverTexture = AssetLoader.LoadTexture("MainMenu/statistics_c.png");
             btnStatistics.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -183,6 +191,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnCredits = new XNAClientButton(WindowManager);
             btnCredits.Name = nameof(btnCredits);
+            btnCredits.Text = LocaleKey.Main_btnCredits.Lang();
             btnCredits.IdleTexture = AssetLoader.LoadTexture("MainMenu/credits.png");
             btnCredits.HoverTexture = AssetLoader.LoadTexture("MainMenu/credits_c.png");
             btnCredits.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -190,6 +199,7 @@ namespace DTAClient.DXGUI.Generic
 
             btnExtras = new XNAClientButton(WindowManager);
             btnExtras.Name = nameof(btnExtras);
+            btnExtras.Text = LocaleKey.Main_btnExtras.Lang();
             btnExtras.IdleTexture = AssetLoader.LoadTexture("MainMenu/extras.png");
             btnExtras.HoverTexture = AssetLoader.LoadTexture("MainMenu/extras_c.png");
             btnExtras.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -197,6 +207,7 @@ namespace DTAClient.DXGUI.Generic
 
             var btnExit = new XNAClientButton(WindowManager);
             btnExit.Name = nameof(btnExit);
+            btnExit.Text = LocaleKey.Main_btnExit.Lang();
             btnExit.IdleTexture = AssetLoader.LoadTexture("MainMenu/exitgame.png");
             btnExit.HoverTexture = AssetLoader.LoadTexture("MainMenu/exitgame_c.png");
             btnExit.HoverSoundEffect = new EnhancedSoundEffect("MainMenu/button.wav");
@@ -204,8 +215,9 @@ namespace DTAClient.DXGUI.Generic
 
             XNALabel lblCnCNetStatus = new XNALabel(WindowManager);
             lblCnCNetStatus.Name = nameof(lblCnCNetStatus);
-            lblCnCNetStatus.Text = "DTA players on CnCNet:";
+            lblCnCNetStatus.Text = LocaleKey.Main_lblCnCNetStatus.Lang();
             lblCnCNetStatus.ClientRectangle = new Rectangle(12, 9, 0, 0);
+            lblCnCNetStatus.TextAnchor = LabelTextAnchorInfo.CENTER;
 
             lblCnCNetPlayerCount = new XNALabel(WindowManager);
             lblCnCNetPlayerCount.Name = nameof(lblCnCNetPlayerCount);

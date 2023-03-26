@@ -29,6 +29,7 @@ namespace DTAConfig.OptionPanels
         private XNAClientDropDown ddDetailLevel;
         private XNAClientDropDown ddRenderer;
         private XNAClientDropDown ddLanguage;
+        private XNAClientButton btnOutputDefaultLanguage;
         private XNAClientCheckBox chkWindowedMode;
         private XNAClientCheckBox chkBorderlessWindowedMode;
         private XNAClientCheckBox chkBackBufferInVRAM;
@@ -158,8 +159,7 @@ namespace DTAConfig.OptionPanels
             chkBackBufferInVRAM.ClientRectangle = new Rectangle(
                 lblDetailLevel.X,
                 chkBorderlessWindowedMode.Bottom + 28, 0, 0);
-            chkBackBufferInVRAM.Text = LocaleKey.Option_chkBackBufferInVRAM.Lang() + Environment.NewLine +
-                LocaleKey.Option_chkBackBufferInVRAM_l2.Lang() + Environment.NewLine + LocaleKey.Option_chkBackBufferInVRAM_l3.Lang();
+            chkBackBufferInVRAM.Text = LocaleKey.Option_chkBackBufferInVRAM.Lang();
 
             var lblClientResolution = new XNALabel(WindowManager);
             lblClientResolution.Name = "lblClientResolution";
@@ -258,6 +258,16 @@ namespace DTAConfig.OptionPanels
                 ddRenderer.Height);
 
             GetLanguages();
+
+            btnOutputDefaultLanguage = new XNAClientButton(WindowManager);
+            btnOutputDefaultLanguage.Name = "btnOutputDefaultLanguage";
+            btnOutputDefaultLanguage.ClientRectangle = new Rectangle(
+                ddClientResolution.X,
+                chkBorderlessWindowedMode.Y,
+                ddClientResolution.Width,
+                ddRenderer.Height);
+            btnOutputDefaultLanguage.Text = LocaleKey.Option_btnOutputDefaultLanguage.Lang(); ;
+            btnOutputDefaultLanguage.LeftClick += LocalizationManager.OutputDefaultLanguage;
 
 #if !YR
             lblCompatibilityFixes = new XNALabel(WindowManager);

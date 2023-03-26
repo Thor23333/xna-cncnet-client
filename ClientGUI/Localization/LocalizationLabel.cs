@@ -9,143 +9,6 @@ using System.Text;
 
 namespace ClientGUI
 {
-    public enum LocaleKey
-    {
-        OK,
-        Cancel,
-        Yes,
-        No,
-        MainMenu,
-        GameLobby,
-        CnCNetLobby,
-
-        MainMenuWithHotKey,
-        CnCNetLobbyWithHotKey,
-        PrivateMessageWithHotKey,
-        OptionWithHotKey,
-
-        Option_tabDisplay,
-        Option_lblIngameResolution,
-        Option_lblDetailLevel,
-        Option_ddDetailLevel_Low,
-        Option_ddDetailLevel_Medium,
-        Option_ddDetailLevel_High,
-        Option_lblLanguage,
-        Option_lblRenderer,
-        Option_chkWindowedMode,
-        Option_chkBorderlessWindowedMode,
-        Option_chkBackBufferInVRAM,
-        Option_chkBackBufferInVRAM_l2,
-        Option_chkBackBufferInVRAM_l3,
-        Option_lblClientResolution,
-        Option_ddClientResolution_prefer,
-        Option_chkBorderlessClient,
-        Option_lblClientTheme,
-
-        Option_tabAudio,
-
-        Option_tabGame,
-
-        Option_tabCnCNet,
-
-        Option_tabUpdater,
-
-        Option_tabComponents,
-
-        Option_btnCancel,
-        Option_btnSave,
-
-        Lobby_btnNewGame,
-        Lobby_btnJoinGame,
-        Lobby_PrivateMessage,
-        Lobby_AddFriend,
-        Lobby_RemoveFriend,
-        Lobby_Block,
-        Lobby_Unblock,
-        Lobby_tbChatInput,
-        Lobby_lblColor,
-        Lobby_lblCurrentChannel,
-        Lobby_lblOnline,
-        Lobby_tbGameSearch,
-        Lobby_gameBroadcastChannel,
-        Lobby_ClientVersionTip,
-        Lobby_BannedTip,
-        Lobby_GameBannedTip,
-        Lobby_JoiningGameTip,
-        Lobby_CreatingGameTip,
-        Lobby_UpdateTip,
-        Lobby_UpdateTipChoice,
-        Lobby_InvalidGameIndexError,
-        Lobby_JoiningGameInProgressError,
-        Lobby_GameExeRunningError,
-        Lobby_LocalGameIDMismatchError,
-        Lobby_GameLockedError,
-        Lobby_NotInSaveGameError,
-        Lobby_IncorrectPasswordError,
-
-        Lobby_JoinChannelError,
-        Lobby_JoinChannelErrorDesc,
-        Lobby_JoinChatChannelErrorDesc,
-        Lobby_JoinBroadcastChannelErrorDesc,
-        Lobby_JoinChannelErrorDescFinal,
-
-        Lobby_InviteHead,
-        Lobby_InviteChoice,
-        Lobby_InviteYes,
-        Lobby_InviteNo,
-        Lobby_InviteJoinFailed,
-        Lobby_InviteJoinFailedDesc,
-        Lobby_InviteFailed,
-
-        Lobby_MsgBlocked,
-
-        LANLobby_SocketFailed,
-        LANLobby_SocketFailed_l2,
-        LANLobby_SocketFailed_l3,
-        LANLobby_DuplicateNameError,
-        LANLobby_ConnectError,
-
-        IRCColor_DefaultColor,
-        IRCColor_DefaultColor2,
-        IRCColor_LightBlue,
-        IRCColor_ForestGreen,
-        IRCColor_DarkRed,
-        IRCColor_Red,
-        IRCColor_MediumOrchid,
-        IRCColor_Orange,
-        IRCColor_Yellow,
-        IRCColor_Lime,
-        IRCColor_Turquoise,
-        IRCColor_LightSkyBlue,
-        IRCColor_RoyalBlue,
-        IRCColor_Fuchsia,
-        IRCColor_Gray,
-        IRCColor_Gray2,
-
-        LANColor_Gray,
-        LANColor_Metalic,
-        LANColor_Green,
-        LANColor_LimeGreen,
-        LANColor_GreenYellow,
-        LANColor_Goldenrod,
-        LANColor_Yellow,
-        LANColor_Orange,
-        LANColor_Red,
-        LANColor_Pink,
-        LANColor_Purple,
-        LANColor_SkyBlue,
-        LANColor_Blue,
-        LANColor_Brown,
-        LANColor_Teal,
-
-        LogOut,
-        Offine,
-        Connecting,
-        Connected,
-        LANMode,
-        NoCnCNetPlayer,
-        CnCNetPlayerCounter,
-    }
     /// <summary>
     /// A GUI creator that also includes ClientGUI's custom controls in addition
     /// to the controls of Rampastring.XNAUI.
@@ -154,13 +17,15 @@ namespace ClientGUI
     {
         public static LocalizationLabel Instance = new LocalizationLabel();
 
-        private const string LANG_KEY = "Localisation";
         public string Language;
-        public const string Default_Lang = "en-US";
+        public string Default_Label = LocaleKey.Default_Label.Lang();
+        public static string newLinePH = "\\n";
 
         private LocaleDictionary locale = new LocaleDictionary();
-        private readonly LocaleDictionary defaultLocale = new LocaleDictionary
+        public static readonly LocaleDictionary defaultLocale = new LocaleDictionary
         {
+            [LocaleKey.Default_Label] = "(Default)",
+
             [LocaleKey.OK] = "OK",
             [LocaleKey.Cancel] = "Cancel",
             [LocaleKey.Yes] = "Yes",
@@ -175,6 +40,28 @@ namespace ClientGUI
             [LocaleKey.PrivateMessageWithHotKey] = "Private Messages (F4)",
             [LocaleKey.OptionWithHotKey] = "Options (F12)",
 
+            [LocaleKey.Main_btnNewCampaign] = "Campaign",
+            [LocaleKey.Main_btnLoadGame] = "Load Game",
+            [LocaleKey.Main_btnSkirmish] = "Skirmish",
+            [LocaleKey.Main_btnCnCNet] = "CnCNet",
+            [LocaleKey.Main_btnLan] = "LAN",
+            [LocaleKey.Main_btnOptions] = "Options",
+            [LocaleKey.Main_btnMapEditor] = "Map Editor",
+            [LocaleKey.Main_btnStatistics] = "Statistics",
+            [LocaleKey.Main_btnCredits] = "View Credits",
+            [LocaleKey.Main_btnExtras] = "Extras",
+            [LocaleKey.Main_btnExit] = "Quit Game",
+            [LocaleKey.Main_lblCnCNetStatus] = "Players Online: ",
+
+            [LocaleKey.Option_msgboxDownloadInProgressCaption] = "Downloads in progress",
+            [LocaleKey.Option_msgboxDownloadInProgressDesc] = "Optional component downloads are in progress. The downloads will be cancelled if you exit the Options menu." + newLinePH + newLinePH +
+                                                              "Are you sure you want to continue?",
+            [LocaleKey.Option_msgboxSaveFailCaption] = "Saving Settings Failed",
+            [LocaleKey.Option_msgboxSaveFailDesc] = "Saving settings failed! Error message: {0}",
+            [LocaleKey.Option_msgboxRestartCaption] = "Restart Required",
+            [LocaleKey.Option_msgboxRestartDesc] = "The client needs to be restarted for some of the changes to take effect." + newLinePH + newLinePH +
+                                                   "Do you want to restart now?",
+
             [LocaleKey.Option_tabDisplay] = "Display",
             [LocaleKey.Option_lblIngameResolution] = "In-game Resolution:",
             [LocaleKey.Option_lblDetailLevel] = "Detail Level:",
@@ -183,25 +70,102 @@ namespace ClientGUI
             [LocaleKey.Option_ddDetailLevel_High] = "High",
             [LocaleKey.Option_lblRenderer] = "Renderer:",
             [LocaleKey.Option_lblLanguage] = "Language:",
+            [LocaleKey.Option_btnOutputDefaultLanguage] = "Output Default Localisation",
             [LocaleKey.Option_chkWindowedMode] = "Windowed Mode",
             [LocaleKey.Option_chkBorderlessWindowedMode] = "Borderless Windowed Mode",
-            [LocaleKey.Option_chkBackBufferInVRAM] = "Back Buffer in Video Memory",
-            [LocaleKey.Option_chkBackBufferInVRAM_l2] = "(lower performance, but is",
-            [LocaleKey.Option_chkBackBufferInVRAM_l3] = "necessary on some systems)",
+            [LocaleKey.Option_chkBackBufferInVRAM] = "Back Buffer in Video Memory" + newLinePH +
+                                                     "(lower performance, but is" + newLinePH +
+                                                     "necessary on some systems)",
             [LocaleKey.Option_lblClientResolution] = "Client Resolution:",
-            [LocaleKey.Option_ddClientResolution_prefer] = "(recommended)",
+            [LocaleKey.Option_ddClientResolution_prefer] = "(Default)",
             [LocaleKey.Option_chkBorderlessClient] = "Fullscreen Client",
             [LocaleKey.Option_lblClientTheme] = "Client Theme:",
 
             [LocaleKey.Option_tabAudio] = "Audio",
+            [LocaleKey.Option_lblScoreVolume] = "Music Volume:",
+            [LocaleKey.Option_lblSoundVolume] = "Sound Volume:",
+            [LocaleKey.Option_lblVoiceVolume] = "Voice Volume:",
+            [LocaleKey.Option_chkScoreShuffle] = "Shuffle Music",
+            [LocaleKey.Option_lblClientVolume] = "Client Volume:",
+            [LocaleKey.Option_chkMainMenuMusic] = "Main menu music",
+            [LocaleKey.Option_chkStopMusicOnMenu] = "Don't play main menu music in lobbies",
 
             [LocaleKey.Option_tabGame] = "Game",
+            [LocaleKey.Option_lblScrollRate] = "Scroll Rate:",
+            [LocaleKey.Option_chkScrollCoasting] = "Scroll Coasting",
+            [LocaleKey.Option_chkTargetLines] = "Target Lines",
+            [LocaleKey.Option_chkTooltips] = "Tooltips",
+            [LocaleKey.Option_lblPlayerName] = "Player Name*:",
+            [LocaleKey.Option_chkShowHiddenObjects] = "Show Hidden Objects",
+            [LocaleKey.Option_chkBlackChatBackground] = "Use black background for in-game chat messages",
+            [LocaleKey.Option_chkAltToUndeploy] = "Undeploy units by holding Alt key instead of a regular move command",
+            [LocaleKey.Option_lblNotice] = "* If you are currently connected to CnCNet, you need to log out and reconnect\\n"+
+                                           "for your new name to be applied.",
+            [LocaleKey.Option_btnConfigureHotkeys] = "Configure Hotkeys",
 
             [LocaleKey.Option_tabCnCNet] = "CnCNet",
+            [LocaleKey.Option_chkPingUnofficialTunnels] = "Ping unofficial CnCNet tunnels",
+            [LocaleKey.Option_chkWriteInstallPathToRegistry] = "Write game installation path to Windows" + newLinePH +
+                                                               "Registry (makes it possible to join" + newLinePH +
+                                                               "other games' game rooms on CnCNet)",
+            [LocaleKey.Option_chkPlaySoundOnGameHosted] = "Play sound when a game is hosted",
+            [LocaleKey.Option_chkNotifyOnUserListChange] = "Show player join / quit messages" + newLinePH + 
+                                                           "on CnCNet lobby",
+
+            [LocaleKey.Option_chkSkipLoginWindow] = "Skip login dialog",
+            [LocaleKey.Option_chkPersistentMode] = "Stay connected outside of the CnCNet lobby",
+            [LocaleKey.Option_chkConnectOnStartup] = "Connect automatically on client startup",
+            [LocaleKey.Option_chkDiscordIntegration] = "Show detailed game info in Discord status",
+            [LocaleKey.Option_chkAllowGameInvitesFromFriendsOnly] = "Only receive game invitations from friends",
+            [LocaleKey.Option_lblFollowedGames] = "Show game rooms from the following games:",
+
 
             [LocaleKey.Option_tabUpdater] = "Updater",
+            [LocaleKey.Option_lblDescription] = "To change download server priority, select a server from the list and" + newLinePH +
+                                                "use the Move Up / Down buttons to change its priority.",
+            [LocaleKey.Option_btnMoveUp] = "Move Up",
+            [LocaleKey.Option_btnMoveDown] = "Move Down",
+            [LocaleKey.Option_chkAutoCheck] = "Check for updates automatically",
+            [LocaleKey.Option_btnForceUpdate] = "Force Update",
+            [LocaleKey.Option_msgboxForceUpdateCaption] = "Force Update Confirmation",
+            [LocaleKey.Option_msgboxForceUpdateDesc] = "WARNING: Force update will result in files being re-verified" + newLinePH +
+                                                       "and re - downloaded.While this may fix problems with game" + newLinePH +
+                                                       "files, this also may delete some custom modifications" + newLinePH +
+                                                       "made to this installation. Use at your own risk!" + newLinePH + newLinePH +
+                                                       "If you proceed, the options window will close and the" + newLinePH +
+                                                       "client will proceed to checking for updates." + newLinePH + newLinePH +
+                                                       "Do you really want to force update?" + newLinePH,
 
             [LocaleKey.Option_tabComponents] = "Components",
+            [LocaleKey.Option_msgboxInstallCaption] = "Confirmation Required",
+            [LocaleKey.Option_msgboxInstallDesc] = "To enable {0} the Client will download the necessary files to your game directory." + newLinePH + newLinePH +
+                                                   "This will take an additional {1} of disk space, and the download may last" + newLinePH +
+                                                   "from a few minutes to multiple hours depending on your Internet connection speed." + newLinePH + newLinePH +
+                                                   "You will not be able to play during the download. Do you want to continue?",
+
+            [LocaleKey.Option_msgboxDownloadFailCaption] = "Optional Component Download Failed",
+            [LocaleKey.Option_msgboxDownloadFailDesc] = "Download of optional component {0} failed." + newLinePH +
+                                                        "See client.log for details." + newLinePH + newLinePH +
+                                                        "If this problem continues, please contact your mod's authors for support.",
+
+            [LocaleKey.Option_msgboxDownloadCompleteCaption] = "Download Completed",
+            [LocaleKey.Option_msgboxDownloadCompleteDesc] = "Download of optional component {0} completed succesfully.",
+
+            [LocaleKey.HotKey_lblCategory] = "Category:",
+            [LocaleKey.HotKey_lbCommand] = "Command",
+            [LocaleKey.HotKey_lbShortcut] = "Shortcut",
+            [LocaleKey.HotKey_lblCommandCaption] = "Command name",
+            [LocaleKey.HotKey_lblDescription] = "Command description",
+            [LocaleKey.HotKey_lblCurrentHotkey] = "Currently assigned hotkey:",
+            [LocaleKey.HotKey_lblCurrentHotkeyValue] = "Current hotkey value",
+            [LocaleKey.HotKey_lblNewHotkey] = "New hotkey:",
+            [LocaleKey.HotKey_lblNewHotkeyValue] = "Press a key...",
+            [LocaleKey.HotKey_lblCurrentlyAssignedTo] = "Currently assigned to:",
+            [LocaleKey.HotKey_btnAssign] = "Assign Hotkey",
+            [LocaleKey.HotKey_btnResetKey] = "Reset to Default",
+            [LocaleKey.HotKey_lblDefaultHotkey] = "Default hotkey:",
+            [LocaleKey.HotKey_btnResetAllKeys] = "Reset All Keys",
+            [LocaleKey.HotKey_none] = "None",
 
             [LocaleKey.Option_btnCancel] = "Cancel",
             [LocaleKey.Option_btnSave] = "Save",
@@ -300,6 +264,12 @@ namespace ClientGUI
             [LocaleKey.LANMode] = "LAN MODE",
             [LocaleKey.NoCnCNetPlayer] = "N/A",
             [LocaleKey.CnCNetPlayerCounter] = "PLAYERS ONLINE:",
+
+            [LocaleKey.NotAvailable] = "Not Available",
+            [LocaleKey.Install] = "Install",
+            [LocaleKey.Downloading] = "Downloading",
+            [LocaleKey.Update] = "Update",
+            [LocaleKey.Uninstall] = "Uninstall",
         };
 
         public LocalizationLabel()
@@ -352,8 +322,8 @@ namespace ClientGUI
         {
             if (File.Exists(ProgramConstants.GetLocalePath() + Language + ".ini"))
                 GetINILocale(new CCIniFile(ProgramConstants.GetLocalePath() + Language + ".ini"));
-            else if (File.Exists(ProgramConstants.GetLocalePath() + Default_Lang + ".ini"))
-                GetINILocale(new CCIniFile(ProgramConstants.GetLocalePath() + Default_Lang + ".ini"));
+            else if (File.Exists(ProgramConstants.GetLocalePath() + LocalizationManager.Default_Lang + ".ini"))
+                GetINILocale(new CCIniFile(ProgramConstants.GetLocalePath() + LocalizationManager.Default_Lang + ".ini"));
         }
 
         /// <summary>
@@ -361,7 +331,7 @@ namespace ClientGUI
         /// </summary>
         protected virtual void GetINILocale(IniFile iniFile)
         {
-            List<string> keys = iniFile.GetSectionKeys(LANG_KEY);
+            List<string> keys = iniFile.GetSectionKeys(LocalizationManager.LANG_KEY);
 
             if (keys != null)
             {
@@ -369,7 +339,7 @@ namespace ClientGUI
                 {
                     if (Enum.TryParse(key, true, out LocaleKey localeKey))
                     {
-                        locale[localeKey] = iniFile.GetStringValue(LANG_KEY, key, String.Empty);
+                        locale[localeKey] = iniFile.GetStringValue(LocalizationManager.LANG_KEY, key, String.Empty);
                     }
                 }
             }
@@ -377,142 +347,4 @@ namespace ClientGUI
 
     }
 
-    internal class LocaleDictionary : Dictionary<LocaleKey, LocaleValue>
-    {
-        public void Add(LocaleKey key, string value)
-        {
-            base.Add(key, value);
-        }
-    }
-
-    public class LocaleValue
-    {
-        public string Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                _value = value;
-            }
-        }
-        private string _value;
-        public LocaleValue(string value)
-        {
-            Value = value;
-        }
-        public string Format(object arg0)
-        {
-            try
-            {
-                return string.Format(Value, arg0);
-            }
-            catch (FormatException e)
-            {
-                Logger.Log(e.ToString());
-                return Value;
-            }
-        }
-
-        public string Format(object arg0, object arg1)
-        {
-            try
-            {
-                return string.Format(Value, arg0, arg1);
-            }
-            catch (FormatException e)
-            {
-                Logger.Log(e.ToString());
-                return Value;
-            }
-        }
-        public string Format(object arg0, object arg1, object arg2)
-        {
-            try
-            {
-                return string.Format(Value, arg0, arg1, arg2);
-            }
-            catch (FormatException e)
-            {
-                Logger.Log(e.ToString());
-                return Value;
-            }
-        }
-        public string Format(params object[] args)
-        {
-            try
-            {
-                return string.Format(Value, args);
-            }
-            catch (FormatException e)
-            {
-                Logger.Log(e.ToString());
-                return Value;
-            }
-        }
-
-        public static LocaleValue operator +(LocaleValue v1, string v2)
-        {
-            v1.Value += v2;
-            return v1;
-        }
-
-        public static implicit operator LocaleValue(string v)
-        {
-            return new LocaleValue(v);
-        }
-
-        public static implicit operator string(LocaleValue v)
-        {
-            return v.Value;
-        }
-    }
-
-    public static class LocalizationManager
-    {
-
-        //public static bool SetLanguage(string languageId)
-        //{
-        //    return 
-        //}
-        public static Dictionary<string, LanguageInfo> GetAllLocaleTypeFromIni()
-        {
-            var LanguageList = new Dictionary<string, LanguageInfo>();
-            LanguageList.Add(LocalizationLabel.Default_Lang, new LanguageInfo("English(Default)",false));
-
-            var dirInfo = new DirectoryInfo(ProgramConstants.GetLocalePath());
-            var dirList = dirInfo.GetFiles("*.ini", SearchOption.AllDirectories).ToList();
-            foreach (var dir in dirList)
-            {
-                var dirFullName = dir.FullName;
-                var dirName = Path.GetFileNameWithoutExtension(dirFullName); 
-                var iniFile = new CCIniFile(dirFullName);
-                List<string> keys = iniFile.GetSectionKeys(dirName);
-                if (dirName == LocalizationLabel.Default_Lang)
-                {
-                    LanguageList[LocalizationLabel.Default_Lang] = new LanguageInfo(iniFile.GetStringValue(dirName, "UIName", "English") + "(Default)", false);
-                }
-                else if (keys != null)
-                {
-                    var langInfo = new LanguageInfo(iniFile.GetStringValue(dirName, "UIName", String.Empty), iniFile.GetBooleanValue(dirName, "Hidden", false));
-                    LanguageList.Add(dirName, langInfo);
-                }
-            }
-            return LanguageList;
-        }
-        public static LocaleValue Lang(this LocaleKey key)  => LocalizationLabel.Instance?.GetLocaleValue(key);
-    }
-
-    public class LanguageInfo
-    {
-        public bool Hidden { get; }
-        public string UIName { get; }
-        public LanguageInfo(string name, bool hidden)
-        {
-            UIName = name;
-            Hidden = hidden;
-        }
-    }
 }
